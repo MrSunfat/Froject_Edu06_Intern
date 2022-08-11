@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="ic_BaoCao" transform="translate(-21 -299)">
+    <rect id="Rectangle_18121" data-name="Rectangle 18121" width="32" height="32" transform="translate(21 299)" fill="#fff" opacity="0"/>
+    <g id="Group_30133" transform="translate(15.5 293.6)">
+      <path id="Path_59367" d="M31.5,21.4a10,10,0,1,1-10-10v10Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_59368" d="M31.1,18.4a10.041,10.041,0,0,0-6.5-6.5" fill="none" stroke="#0dd469" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

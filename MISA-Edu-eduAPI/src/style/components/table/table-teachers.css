@@ -1,0 +1,155 @@
+.table-teachers {
+    width: 100%;
+    overflow: scroll;
+}
+
+.table-teachers::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* .table-teachers::-webkit-scrollbar::vertical {
+    width: 5px;
+} */
+
+.table-teachers::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #e5e5e5; 
+    border-radius: 4px;
+}
+
+.table-teachers::-webkit-scrollbar-thumb {
+    background: #bbb; 
+    border-radius: 4px;
+}
+
+.table-teachers__container {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+tr {
+    height: var(--row-info-height);
+}
+
+td, th {
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+.table-teachers__container__title {
+    height: var(--row-title-height);
+    background-color: #F5F6FA;
+}
+
+.table-teachers__container__title:hover {
+    background-color: #F5F6FA !important;
+}
+
+.table-teachers__container .check {
+    display: none;
+}
+
+.table-teachers__container .check.show {
+    display: block;
+}
+
+/* checkbox */
+.checkbox-input {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.checkbox-input__icon-hover, .checkbox-input__icon-checked {
+    display: none;
+}
+
+.checkbox-input:hover .checkbox-input__icon {
+    display: none;
+}
+
+.checkbox-input:hover .checkbox-input__icon-hover {
+    display: block;
+}
+
+.checkbox-input.active .checkbox-input__icon {
+    display: none;
+}
+
+.checkbox-input.active .checkbox-input__icon-hover {
+    display: none;
+}
+
+.checkbox-input.active .checkbox-input__icon {
+    display: none;
+}
+
+.checkbox-input.active .checkbox-input__icon-checked {
+    display: block;
+}
+
+/* edit icon */
+.edit__icon {
+    cursor: pointer;
+}
+
+/* delete icon */
+.delete__container {
+    cursor: pointer;
+}
+
+.delete__container .remove__icon-hover {
+    display: none;
+}
+
+.delete__container:hover .remove__icon {
+    display: none;
+}
+
+.delete__container:hover .remove__icon-hover {
+    display: block;
+}
+
+th {
+    
+}
+
+/* căn khoảng cách cho các cột */
+/* th:nth-child(1) {
+    width: 10%;
+}
+
+th:nth-child(2) {
+    width: 10%;
+}
+
+th:nth-child(3) {
+    width: 10%;
+}
+
+th:nth-child(4) {
+    width: 10%;
+}
+
+th:nth-child(5) {
+    width: 10%;
+}
+
+th:nth-child(6) {
+    width: 10%;
+}
+
+th:nth-child(7) {
+    width: 10%;
+}
+
+th:nth-child(8) {
+    width: 10%;
+}
+
+th:nth-child(9) {
+    width: 10%;
+} */
