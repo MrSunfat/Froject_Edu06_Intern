@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_20838" data-name="Rectangle 20838" width="32" height="32" transform="translate(264 256)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="ic_Mua_Sam" data-name="ic_Mua Sam" transform="translate(-264 -256)" clip-path="url(#clip-path)">
+    <g id="_116383_1_" data-name="116383 (1)" transform="translate(269.3 261)">
+      <g id="Group_44077" data-name="Group 44077">
+        <path id="Path_84510" data-name="Path 84510" d="M302.548,417.6a1.761,1.761,0,0,1,1.748,1.791,1.748,1.748,0,1,1-1.748-1.791Zm0,2.684a.86.86,0,0,0,.85-.9.851.851,0,1,0-.85.9Z" transform="translate(-295.836 -400.141)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7"/>
+        <path id="Path_84511" data-name="Path 84511" d="M80.448,417.6a1.761,1.761,0,0,1,1.748,1.791,1.789,1.789,0,0,1-1.748,1.791,1.761,1.761,0,0,1-1.748-1.791A1.789,1.789,0,0,1,80.448,417.6Zm0,2.684a.861.861,0,0,0,.85-.9.891.891,0,0,0-.85-.9.861.861,0,0,0-.85.9A.886.886,0,0,0,80.448,420.284Z" transform="translate(-64.2 -400.141)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7"/>
+        <path id="Path_84512" data-name="Path 84512" d="M16.6,11l.7,2.731h17.57l-3.242,9.605a2.227,2.227,0,0,1,1.9,2.259,2.265,2.265,0,0,1-2.237,2.327H19.111v-.85H31.288a1.371,1.371,0,0,0,1.344-1.434A1.4,1.4,0,0,0,31.288,24.2H19.068l-3.177-12.31H14.1V11h2.5Zm3.135,12.31H30.7l2.911-8.686H17.544l2.194,8.686Z" transform="translate(-14.1 -11)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.7"/>
+        <rect id="Rectangle_20763" data-name="Rectangle 20763" width="0.897" height="5.058" transform="translate(14.187 5.728)" fill="#0cd569" stroke="#0cd569" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="Rectangle_20764" data-name="Rectangle 20764" width="0.897" height="5.058" transform="translate(11.005 5.728)" fill="#0cd569" stroke="#0cd569" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="Rectangle_20765" data-name="Rectangle 20765" width="0.897" height="5.058" transform="translate(7.828 5.728)" fill="#0cd569" stroke="#0cd569" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

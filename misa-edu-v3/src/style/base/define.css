@@ -1,0 +1,450 @@
+:root {
+    /* Định nghĩa màu */
+    /* main color */
+    --main-color: #03AE66;
+
+    /* warn color */
+    --warn-color: #EFBF09;
+    
+    /* row focus on grid */
+    --row-focus-color-on-grid-color: #CCE8FF;
+    /* hover color */
+    --hover-color: #E5F3FF;
+    /* link color */
+    --link-color: #0997EB;
+    /* hover icons: delete icon, cancel icon */
+    --hover-delete-icon-color: #FA3939;
+    /* error color */
+    --error-color: #FA3939;
+    /* dot on bell */
+    --dot-on-bell: #FA3939;
+    /* bg color */
+    --bg-color: #EAECEF;
+    /* gradient color */
+    --gradient-color: linear-gradient(#03C573, #009253);
+
+    /* bg icon hover */
+    --bg-icon-hover: #e9e9e9;
+
+    /* --- Menu --- */
+    /* bg Menu Sidebar */
+    --bg-menu-sidebar: #24344B;
+    /* active sidebar bg  */
+    --active-sidebar-bg: #404F64;
+    /* hover item on menu */
+    --hover-sidebar-bg: #404F64;
+    /* bg sub-menu */
+    --bg-sub-menu: #404F64;
+
+    /* active sidebar color */
+    --active-sidebar-color: #0DD469;
+    /* header title on sidebar */
+    --header-title-on-sidebar: #f3f4f6;
+    /* title color on menu item */
+    --title-color-on-menu-item: #c8c8c8;
+
+    /* --- Header --- */
+    /* header gridpanel color */
+    --header-gridpanel-color: #F5F6FA;
+    /* line gridpanel color */
+    --line-gridpanel-color: #D5D8E6;
+    /* title header left color */
+    --titlle-header-left-color: #212121;
+    /* user position color */
+    --user-position-color: #a4a4a4;
+    /* option user color */
+    --option-user-color: #f2f2f2;
+
+
+    /* --- Other --- */
+    /* bg hover icon */
+    --bg-hover-icon: #e9e9e9;
+    /* bg party-wall */
+    --bg-party-wall: #EBEBF2;
+    /* main color in form */
+    --main-color-in-form: #4d4f5c;
+    /* second color in form */
+    --second-color-in-form: #b1b1b1;
+
+
+    /* Button */
+    /* main bg */
+    --main-bg-btn: #03AE66;
+    /* main bg - hovver */
+    --main-bg-hover-btn: #02BF70;
+    /* selector bg */
+    --selector-bg: #009253;
+    /* selector bg - hover */
+    --selector-bg-hover: #05A25E;
+    /* selector bg - disable */
+    --selector-bg-disable: #d6d3d3;
+    /* second bg */
+    --second-bg-btn: #fff;
+    /* second bg - hover */
+    --second-bg-hover-btn: #eaecef;
+    /* second btn - border */
+    --second-btn-bd: #cecece;
+    
+    /* text color disable */
+    --text-disable-color: #a6a6a6;
+
+    
+    /* style1 - normal */
+    /* style1 - disable */
+    --bg-btn-stye-disable: #e0e0e0;
+
+    /* style2 - normal */
+    /* styl2 - normal - text color */
+    --style-two-normal-text-color: #3D3F4E;
+
+    /* style4 */
+    /* style4 - border */
+    --style-four-btn-bd: #0FA655;
+    /* style4- text color */
+    --style-four-text-color-btn: #03AE66;
+    /* style4- text color - hovver */
+    --style-four-text-color-hover-btn: #02BF70;
+    
+    /* style 5 */
+    --style-five-bg-hover: #f8f8f8;
+
+    /* input */
+    --input-text-color: #3D3F4E;
+    /* border input */
+    --border-input: #ccc;
+    /* label input color */
+    --label-input-color: #757575;
+    /* height input */
+    --height-input: 32px;
+    /* active border input */
+    --active-border-input: #58BF05;
+
+
+    
+    /* Định nghĩa chiều cao, rộng */
+    /* menu-width */
+    --menu-width: 220px;
+    /* menu-width no-expand */
+    --menu-width-no-expand: 52px;
+
+    /* height */
+    /* height menu header */
+    --height-menu-header: 48px;
+    /* height menu header */
+    --height-header: 48px;
+    /* height - pagination */
+    --height-pagination: 56px;
+    
+    /* height item option dropdown */
+    --height-option-dropdown: 32px;
+
+    /* width */
+    /* chiều rộng của khối tùy chọn của người dùng */
+    --width-user-option: 300px;
+
+    /* table */
+    /* chiều cao của hàng tiêu đề các thông tin */
+    --row-title-height: 64px;
+    /* chiều cao của hàng các thông tin của cán bộ, gv */
+    --row-info-height: 40px;
+    /* chiều dài của tiêu đề của input trục ngang */
+    --width-title-h-input: 100px;
+}
+
+
+@font-face {
+    font-family: Open Sans Regular;
+    src: url("../../assets/Fonts/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: Open Sans SemiBold;
+    src: url("../../assets/Fonts/OpenSans-Semibold.ttf");
+}
+
+@font-face {
+    font-family: Open Sans Bold;
+    src: url("../../assets/Fonts/OpenSans-Bold.ttf");
+}
+
+* {
+    font-family: Open Sans Regular;
+    box-sizing: border-box;
+}
+
+/* định nghĩa font chữ */
+h1 {
+    margin: 0;
+    font-family: Open Sans Bold;
+    font-size: 32px;
+    line-height: 35px;
+}
+
+h2 {
+    margin: 0;
+    font-family: Open Sans Bold;
+    font-size: 28px;
+    line-height: 32px;
+}
+
+h3 {
+    margin: 0;
+    font-family: Open Sans Bold;
+    font-size: 24px;
+    line-height: 27px;
+}
+
+h4 {
+    margin: 0;
+    font-family: Open Sans Bold;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+h5 {
+    margin: 0;
+    font-family: Open Sans Bold;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.title {
+    font-family: Open Sans SemiBold;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.btn {
+    font-family: Open Sans SemiBold;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.subtitle-one {
+    font-family: Open Sans Regular;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.subtitle-two {
+    font-family: Open Sans Regular;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.body-one {
+    font-family: Open Sans Regular;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.body-two {
+    font-family: Open Sans Regular;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.placeholder-one {
+    font-family: Open Sans Regular;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.placeholder-two {
+    font-family: Open Sans Regular;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.disable-one {
+    font-family: Open Sans Regular;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.disable-two {
+    font-family: Open Sans Regular;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.label-one {
+    font-family: Open Sans Regular;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.label-two {
+    font-family: Open Sans Regular;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.small-text {
+    font-family: Open Sans Regular;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+/* thuộc tính hay dùng */
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.i-d-flex {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* font size icon */
+.fs-28 {
+    width: 28px;
+    height: 28px;
+}
+
+.fs-34 {
+    width: 34px;
+    height: 34px;
+}
+
+.fs-37 {
+    width: 37px;
+    height: 37px;
+}
+
+.fs-40 {
+    width: 40px;
+    height: 40px;
+}
+
+/* padding */
+.pd-l-12 {
+    padding-left: 12px;
+}
+
+.none-pd-l {
+    padding-left: 0;
+}
+
+/* margin */
+.mg-l-8 {
+    margin-left: 8px;
+}
+
+.mg-r-8 {
+    margin-right: 8px;
+}
+
+.mg-t-8 {
+    margin-top: 8px;
+}
+
+.mg-t-16 {
+    margin-top: 16px;
+}
+
+.mg-t-24 {
+    margin-top: 24px;
+}
+
+.mg-bt-6 {
+    margin-bottom: 6px;
+}
+
+.mg-bt-8 {
+    margin-bottom: 8px;
+}
+
+.mg-bt-16 {
+    margin-bottom: 16px;
+}
+
+.mg-bt-24 {
+    margin-bottom: 24px;
+}
+
+/* Css App.vue */
+.main {
+    display: grid;
+    grid-template-rows: var(--height-header);
+}
+
+/* reset btn */
+.reset-btn {
+    font-family: Open Sans SemiBold;
+    font-size: 13px;
+    justify-content: center;
+    height: 32px;
+    min-width: 96px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reset-btn:active {
+    outline: none;
+}
+
+/* căn text */
+/* căn giữa */
+.center-text {
+    text-align: center;
+}
+/* căn trái */
+.left-text {
+    text-align: left;
+}
+
+/* căn phải */
+.right-text {
+    text-align: right;
+}
+
+.fs-t-14 {
+    font-size: 14px;;
+}
+
+/* khung cơ bản của input */
+.ip-default {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: var(--height-input);
+}
+
+.ip-default:focus {
+    outline: unset;
+}
+
+/* cusor pointer */
+.c-p {
+    cursor: pointer;
+}
+
+/* toast messager default */
+.toast-messager {
+    min-height: 80px;
+    min-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #b1b1b1;
+    border-radius: 4px ;
+    padding: 8px 18px 7px 14px;
+    right: -350px;
+}
+
+.toast-messager.show {
+    right: 16px;
+}
+
+.toast-messager-two {
+    min-height: 80px;
+    min-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #b1b1b1;
+    border-radius: 4px ;
+    padding: 5px 10px 3px 15px;
+    right: -500px;
+}
+
+.toast-messager-two.show {
+    right: 16px;
+}
