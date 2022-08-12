@@ -8,16 +8,22 @@ namespace MISA.Edu06.Core.Exceptions
 {
     public class EduValidateException : Exception
     {
+        #region Properties
         string? MsgErrorValidate = null;
+        #endregion
 
+        #region Constructor
         public EduValidateException(string msg)
         {
             this.MsgErrorValidate = msg;
         }
+        #endregion
 
+        #region Methods
         public override string Message
         {
             get { return MsgErrorValidate; }
         }
+        #endregion
     }
 }

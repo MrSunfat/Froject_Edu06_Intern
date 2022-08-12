@@ -63,9 +63,9 @@ namespace MISA.Edu06.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ID của tổ hợp môn không được trống !.
         /// </summary>
-        internal static string departmentIDNotEmpty {
+        internal static string DepartmentIDNotEmpty {
             get {
-                return ResourceManager.GetString("departmentIDNotEmpty", resourceCulture);
+                return ResourceManager.GetString("DepartmentIDNotEmpty", resourceCulture);
             }
         }
         

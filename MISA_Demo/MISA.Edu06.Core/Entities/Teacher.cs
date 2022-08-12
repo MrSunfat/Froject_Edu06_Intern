@@ -8,7 +8,7 @@ namespace MISA.Edu06.Core.Entities
 {
     public class Teacher
     {
-        #region "Trường giáo viên"
+        #region Properties of Teacher
         // ID của giáo viên
         public Guid TeacherID { get; set; }
         // Mã giáo viên
@@ -31,8 +31,15 @@ namespace MISA.Edu06.Core.Entities
         public DateTime? DayOff { get; set; }
         // danh sách các môn học
         public List<Subject> ListSubject { get; set; } = new List<Subject>();
+        /// <summary>
+        /// 
+        /// </summary>
         // danh sách các phòng thiết bị
         public List<EquimentRoom> ListRoom { get; set; } = new List<EquimentRoom>();
+        /// <summary>
+        /// 
+        /// </summary>
+        public int MyProperty { get; set; }
         #endregion
 
     }

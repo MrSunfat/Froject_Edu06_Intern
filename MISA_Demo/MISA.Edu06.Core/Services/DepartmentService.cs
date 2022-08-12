@@ -12,12 +12,18 @@ namespace MISA.Edu06.Core.Services
 {
     public class DepartmentService : IDepartmentService
     {
+        #region Properties
         private readonly IDepartmentRepository _departmentRepository;
+        #endregion
 
+        #region Constructor
         public DepartmentService(IDepartmentRepository departmentRepository)
         {
             _departmentRepository = departmentRepository;
         }
+        #endregion
+
+        #region Methods
 
         public int ValidateService(Department department)
         {
@@ -33,5 +39,8 @@ namespace MISA.Edu06.Core.Services
             }
             return 1;
         }
+        #endregion
+
+
     }
 }

@@ -53,6 +53,8 @@ const teachersModule = {
                     };
                 });
 
+                console.log(response);
+
                 commit('SET_TEACHER', response.data.Data);
                 commit('SET_TOTALPAGE', response.data.TotalPage);
                 commit('SET_TOTALTEACHERS', response.data.TotalRecord);
@@ -68,7 +70,7 @@ const teachersModule = {
         async filterTeacher({ commit }, searchText) {
             try {
                 const response = await axios.get(
-                    `${urlTeachers}/filter?pageSize=${constants.pageSize}&pageNumber=${searchText.pageNumber}&employeeFilter=${searchText.content}`
+                    `${urlTeachers}/filter?pageSize=${constants.pageSize}&pageNumber=${searchText.pageNumber}&search=${searchText.content}`
                 );
 
                 console.log('Data: ', response.data);

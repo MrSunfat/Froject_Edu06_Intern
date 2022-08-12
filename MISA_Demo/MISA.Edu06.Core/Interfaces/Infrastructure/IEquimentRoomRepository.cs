@@ -9,6 +9,7 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
 {
     public interface IEquimentRoomRepository
     {
+        #region Methods
         /// <summary>
         /// Lấy ra tất cả thông tin phòng
         /// </summary>
@@ -44,5 +45,6 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// <returns></returns>
         /// CreatedBy: TNDanh (9/8/2022)
         public bool CheckRoomNameDuplicate(string departmentName);
+        #endregion
     }
 }

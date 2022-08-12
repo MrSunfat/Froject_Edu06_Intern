@@ -8,7 +8,7 @@ namespace MISA.Edu06.Core.Entities
 {
     public class Department
     {
-        #region Thuộc tính của môn học
+        #region Properties of Department
         // ID của tổ hợp môn
         public int DepartmentID { get; set; }   
         // tên của tổ hợp môn

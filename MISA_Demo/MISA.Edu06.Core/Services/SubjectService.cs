@@ -12,6 +12,13 @@ namespace MISA.Edu06.Core.Services
 {
     public class SubjectService : ISubjectService
     {
+        #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <returns></returns>
+        /// <exception cref="EduValidateException"></exception>
         public int InsertService(Subject subject)
         {
             // Validate
@@ -47,5 +54,6 @@ namespace MISA.Edu06.Core.Services
             }
             return 1;
         }
+        #endregion
     }
 }

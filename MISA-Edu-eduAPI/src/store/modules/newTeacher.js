@@ -5,6 +5,12 @@ const newTeacherModule = {
             FullName: '',
             PhoneNumber: '',
             Email: '',
+            DepartmentID: 1,
+            ListSubject: [],
+            ListRoom: [],
+            IsProfessionalQualifications: false,
+            IsWorking: false,
+            DayOff: null,
         },
     },
     getters: {
@@ -47,6 +53,25 @@ const newTeacherModule = {
             state.teacher.Email = Email;
         },
         /**
+         *  Xét giá trị cho đào tạo trình độ
+         */
+        setIsProfessionalQualifications(state, isProfessionalQualifications) {
+            state.teacher.IsProfessionalQualifications =
+                isProfessionalQualifications;
+        },
+        /**
+         * Xét giá trị của tình trạng làm việc
+         */
+        setIsWorking(state, isWorking) {
+            state.teacher.IsWorking = isWorking;
+        },
+        /**
+         * Xét giá trị ngày tháng nghỉ việc
+         */
+        setDayOff(state, dayOff) {
+            state.teacher.DayOff = dayOff;
+        },
+        /**
          * Xét giá trị của newTeacher
          * Author: Tran Danh (22/7/2022)
          */
@@ -62,6 +87,12 @@ const newTeacherModule = {
                 FullName: '',
                 PhoneNumber: '',
                 Email: '',
+                DepartmentID: 1,
+                ListSubject: [],
+                ListRoom: [],
+                IsProfessionalQualifications: false,
+                IsWorking: false,
+                DayOff: null,
             };
         },
     },

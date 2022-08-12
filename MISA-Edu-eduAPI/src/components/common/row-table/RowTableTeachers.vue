@@ -35,14 +35,17 @@
     <td class="btn regular-text">
       {{ teacher?.PhoneNumber }}
     </td>
+    <td class="btn regular-text">
+      {{ teacher?.Email }}
+    </td>
     <td class="subtitle-one">
       {{ teacher?.DepartmentName }}
     </td>
     <td class="subtitle-one">
-      {{ teacher?.ListSubject.map((sub) => sub.SubjectName).join(", ") }}
+      {{ teacher?.ListSubject?.map((sub) => sub.SubjectName).join(", ") }}
     </td>
     <td class="subtitle-one">
-      {{ teacher?.ListRoom.map((room) => room.EquimentRoomName).join(", ") }}
+      {{ teacher?.ListRoom?.map((room) => room.EquimentRoomName).join(", ") }}
     </td>
     <td class="subtitle-one">
       <div
@@ -234,6 +237,11 @@ tr.checked {
 
 .name-teacher {
   color: var(--main-color);
+  min-width: 250px;
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* icon */

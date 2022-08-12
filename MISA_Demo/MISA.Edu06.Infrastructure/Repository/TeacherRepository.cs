@@ -8,12 +8,15 @@ namespace MISA.Edu06.Infrastructure.Repository
 {
     public class TeacherRepository : BaseRepository, ITeacherRepository
     {
+        #region Constructor
         public TeacherRepository() { }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Lấy ra tất cả các giáo viên
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Thông tin của tất cả giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public IEnumerable<Teacher> GetAll()
         {
@@ -22,7 +25,7 @@ namespace MISA.Edu06.Infrastructure.Repository
 
             using (_mySqlConnection = new MySqlConnection(connectString))
             {
-                var teachers = formatTeacher(_mySqlConnection, sqlCommand, new { });
+                var teachers = FormatTeacher(_mySqlConnection, sqlCommand, new { });
 
                 return teachers;
             }
@@ -31,8 +34,8 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Lấy giáo viên qua teacherID
         /// </summary>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacherID">Mã ID của giáo viên</param>
+        /// <returns>Thông tin giáo viên qua mã ID</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public Teacher GetTeacherByID(Guid teacherID)
         {
@@ -44,7 +47,7 @@ namespace MISA.Edu06.Infrastructure.Repository
 
             using (_mySqlConnection = new MySqlConnection(connectString))
             {
-                var teachers = formatTeacher(_mySqlConnection, sqlCommand, parameters);
+                var teachers = FormatTeacher(_mySqlConnection, sqlCommand, parameters);
 
                 return teachers[0];
             }
@@ -53,8 +56,8 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Thêm mới giáo viên
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns></returns>
+        /// <param name="teacher">Thông tin giáo viên</param>
+        /// <returns>Số lượng giáo viên thêm</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public int AddNewTeacher(Teacher teacher)
         {
@@ -83,7 +86,7 @@ namespace MISA.Edu06.Infrastructure.Repository
                     {
                         // Thêm:
                         // 1. Thêm thông tin của giáo viên mới vào bảng Teacher
-                        var res = _mySqlConnection.Query<Teacher>(procAddTeacher, parametersTeacher, transaction, commandType: System.Data.CommandType.StoredProcedure);
+                        var res = _mySqlConnection.Execute(procAddTeacher, parametersTeacher, transaction, commandType: System.Data.CommandType.StoredProcedure);
                         // 2. Thêm các môn học vào TeacherSubject (nếu có)
                         if (teacher.ListSubject.Count > 0)
                         {
@@ -122,7 +125,7 @@ namespace MISA.Edu06.Infrastructure.Repository
                         }
 
                         transaction.Commit();
-                        return res.Count();
+                        return res;
                     }
                     catch (Exception ex)
                     {
@@ -137,9 +140,9 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Sửa thông tin giáo viên qua teacherID
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacher">Thông tin giáo viên</param>
+        /// <param name="teacherID">Mã ID của giáo viên</param>
+        /// <returns>Số lượng giáo viên thêm</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public int UpdateTeacherByID(Teacher teacher, Guid teacherID)
         {
@@ -266,8 +269,8 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Xóa teacher qua teacherID
         /// </summary>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacherID">Mã ID của giáo viên</param>
+        /// <returns>Số lượng giáo viên xóa</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public int DeleteTeacherByID(Guid teacherID)
         {
@@ -295,13 +298,16 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        
         /// <summary>
         /// Format trường ListSubject, ListRoom, DepartmentID, DepartmentName của teacher
         /// </summary>
-        /// <param name="teachers"></param>
+        /// <param name="connection">Kết nối DB</param>
+        /// <param name="sqlCommand">Câu lệnh</param>
+        /// <param name="values"></param>
         /// <returns></returns>
         /// CreatedBy: TNDanh (3/8/2022)
-        public static List<Teacher> formatTeacher(MySqlConnection connection, string sqlCommand, object values)
+        public static List<Teacher> FormatTeacher(MySqlConnection connection, string sqlCommand, object values)
         {
             // Tạo teacherDictionary để lưu các teacher đã tồn tại
             var teacherDictionary = new Dictionary<Guid, Teacher>();
@@ -379,7 +385,7 @@ namespace MISA.Edu06.Infrastructure.Repository
                             else
                             {
                                 listID += param;
-                            }
+                            } 
 
                             parameters.Add(param, listTeacherID[i]);
                         }
@@ -446,6 +452,14 @@ namespace MISA.Edu06.Infrastructure.Repository
             return false;
         }
 
+        /// <summary>
+        /// Lọc các giáo viên bằng từ khóa và phân trang
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        /// CreatedBy: TNDanh (11/8/2022)
         public object FilterTeacher(string? search, int pageSize, int pageNumber)
         {
             var sqlFilterAndPaging = "Proc_GetPaging";
@@ -460,7 +474,7 @@ namespace MISA.Edu06.Infrastructure.Repository
 
                 //Console.WriteLine(whereString);
 
-                var res = formatTeacher(_mySqlConnection, sqlFilterAndPaging, parameters);
+                var res = FormatTeacher(_mySqlConnection, sqlFilterAndPaging, parameters);
 
                 var response = new
                 {
@@ -474,5 +488,6 @@ namespace MISA.Edu06.Infrastructure.Repository
                 return response;
             }
         }
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace MISA.Edu06.Core.Entities
 {
     public class EquimentRoom
     {
-        #region
+        #region Properties of Room
         // ID của phòng thiết bị
         public int EquimentRoomID { get; set; }
         // Tên phòng thiết bị

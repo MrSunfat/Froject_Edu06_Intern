@@ -448,3 +448,8 @@ h5 {
 .toast-messager-two.show {
     right: 16px;
 }
+
+.over-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

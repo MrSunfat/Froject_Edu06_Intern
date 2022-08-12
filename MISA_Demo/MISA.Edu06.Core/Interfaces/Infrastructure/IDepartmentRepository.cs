@@ -4,6 +4,7 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
 {
     public interface IDepartmentRepository
     {
+        #region Methods 
         /// <summary>
         /// Lấy ra tất cả thông tin tổ hợp môn
         /// </summary>
@@ -39,5 +40,6 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// <returns></returns>
         /// CreatedBy: TNDanh (9/8/2022)
         public bool CheckDepartmentNameDuplicate(string departmentName);
+        #endregion
     }
 }

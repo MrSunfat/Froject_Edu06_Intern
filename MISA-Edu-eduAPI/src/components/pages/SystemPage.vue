@@ -78,17 +78,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 // type enum
-import typeBtn from "../../scripts/enum/typeBtn";
+import typeBtn from "@/scripts/enum/typeBtn";
 import typeToastEnum from "@/scripts/enum/typeToast";
-import BaseToast from "../common/toast-message/BaseToast.vue";
-import BaseBtn from "../common/button/BaseBtn.vue";
-import TableTeachers from "../table/TableTeachers.vue";
-import FooterBarPagination from "../footer-bar/FooterBarPagination.vue";
-import PopupNotify from "../popup/PopupNotify.vue";
-import FormAddTeacher from "../form/FormAddTeacher.vue";
-import TooltipComp from "../common/tooltip/TooltipComp.vue";
+import BaseToast from "@/components/common/toast-message/BaseToast.vue";
+import BaseBtn from "@/components/common/button/BaseBtn.vue";
+import TableTeachers from "@/components/common/table/TableTeachers.vue";
+import FooterBarPagination from "@/components/common/footer-bar/FooterBarPagination.vue";
+import PopupNotify from "@/components/common/popup/PopupNotify.vue";
+import FormAddTeacher from "@/components/common/form/FormAddTeacher.vue";
+import TooltipComp from "@/components/common/tooltip/TooltipComp.vue";
 // icon
 import moreIcon from "../../assets/Icons/ic_More.png";
 import deleteIcon from "../../assets/Icons/ic_delete.png";
@@ -142,6 +142,7 @@ export default {
     BaseToast,
   },
   methods: {
+    ...mapMutations(["SET_IDXPAGE"]),
     /**
      * Đóng popup thông báo
      * Author: Tran Danh (16/7/2022)
@@ -279,12 +280,15 @@ export default {
      */
     handleFilter() {
       console.log(this.search);
-      if (!this.search) {
+      if (!this.search.content) {
         this.getTeachers(1);
       } else {
+        this.search.pageNumber = 1;
+        this.SET_IDXPAGE(1);
         this.filterTeacher(this.search);
       }
     },
+    
     /**
      * Đóng cả popup và form
      * Tran Danh (29/7/2022)
@@ -307,6 +311,7 @@ export default {
     handleCloseWhenSuccess() {
       this.closeFormTeacher = true;
     },
+
     /**
      * Xét giá trị của index của giá trị tìm kiếm
      * Tran Danh (5/8/2022)
