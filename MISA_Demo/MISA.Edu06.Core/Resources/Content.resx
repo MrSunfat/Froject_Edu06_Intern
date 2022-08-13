@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DepartmentIDNotEmpty" xml:space="preserve">
+  <data name="E_DepartmentIDNotEmpty" xml:space="preserve">
     <value>ID của tổ hợp môn không được trống !</value>
   </data>
-  <data name="departmentIDNotFound" xml:space="preserve">
+  <data name="E_DepartmentIDNotFound" xml:space="preserve">
     <value>ID của tổ hợp môn không tìm thấy trong các tổ hợp môn !</value>
   </data>
-  <data name="departmentNameNotDuplicate" xml:space="preserve">
+  <data name="E_DepartmentNameNotDuplicate" xml:space="preserve">
     <value>Tên tổ hợp môn không được trùng nhau !</value>
   </data>
-  <data name="departmentNameNotEmpty" xml:space="preserve">
+  <data name="E_DepartmentNameNotEmpty" xml:space="preserve">
     <value>Tên tổ hợp môn không được trống !</value>
   </data>
-  <data name="subjectNameNotDuplicate" xml:space="preserve">
-    <value>Tện môn học không được phép trùng nhau !</value>
+  <data name="E_SubjectNameNotDuplicate" xml:space="preserve">
+    <value>Tên môn học không được phép trùng nhau !</value>
   </data>
-  <data name="subjectNameNotEmpty" xml:space="preserve">
-    <value>Tện môn học không được phép trống !</value>
+  <data name="E_SubjectNameNotEmpty" xml:space="preserve">
+    <value>Tên môn học không được phép trống !</value>
   </data>
-  <data name="teacherCodeNotDuplicate" xml:space="preserve">
+  <data name="E_TeacherCodeNotDuplicate" xml:space="preserve">
     <value>Mã giáo viên không được phép để trùng nhau !</value>
   </data>
-  <data name="teacherCodeNotEmpty" xml:space="preserve">
+  <data name="E_TeacherCodeNotEmpty" xml:space="preserve">
     <value>Mã giáo viên không được phép để trống !</value>
   </data>
-  <data name="teacherNameNotEmpty" xml:space="preserve">
+  <data name="E_TeacherNameNotEmpty" xml:space="preserve">
     <value>Tên giáo viên không được phép để trống !</value>
+  </data>
+  <data name="S_PostContent" xml:space="preserve">
+    <value>Thêm thành công !</value>
   </data>
 </root>

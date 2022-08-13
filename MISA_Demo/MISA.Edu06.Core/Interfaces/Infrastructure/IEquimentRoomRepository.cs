@@ -13,38 +13,31 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// <summary>
         /// Lấy ra tất cả thông tin phòng
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Tất cả thông tin phòng</returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public IEnumerable<EquimentRoom> GetAll();
         /// <summary>
-        /// Thêm một thông tin phòng mới
+        /// Thêm một thông tin phòng thiết bị mới
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns></returns>
+        /// <param name="room">Thông tin của phòng</param>
+        /// <returns>Số lượng phòng thêm mới </returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int AddNewRoom(EquimentRoom room);
         /// <summary>
-        /// Sửa thông tin phòng qua id
+        /// Sửa thông tin phòng qua roomID
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <param name="teacherID"></param>
+        /// <param name="room">Thông tin mới của phòng</param>
+        /// <param name="roomID">Mã ID của phòng</param>
         /// <returns></returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int UpdateRoomByID(EquimentRoom room, int roomID);
         /// <summary>
-        /// Xóa thông tin tổ hợp môn qua id
+        /// Xóa thông tin tổ hợp môn qua roomID
         /// </summary>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="roomID">Mã ID của phòng</param>
+        /// <returns>Số lượng giáo viên bị xóa</returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int DeleteRoomByID(int roomID);
-        /// <summary>
-        /// Kiểm tra tên phòng ban có bị trùng không ?
-        /// </summary>
-        /// <param name="departmentName"></param>
-        /// <returns></returns>
-        /// CreatedBy: TNDanh (9/8/2022)
-        public bool CheckRoomNameDuplicate(string departmentName);
         #endregion
     }
 }

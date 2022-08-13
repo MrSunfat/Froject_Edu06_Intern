@@ -7,6 +7,12 @@ namespace MISA.Edu06.Infrastructure.Repository
 {
     public class SubjectRepository : BaseRepository, ISubjectRepository
     {
+        #region Methods
+        /// <summary>
+        /// Lấy tất cả thông tin của môn học
+        /// </summary>
+        /// <returns>Tất cả thông tin của môn học</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public IEnumerable<Subject> GetAll()
         {
             using(_mySqlConnection = new MySqlConnection(connectString))
@@ -17,6 +23,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Thêm môn học mới
+        /// </summary>
+        /// <param name="subject">Thông tin môn học mới</param>
+        /// <returns>Số lượng thêm môn mới</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int AddNewSubject(Subject subject)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -38,6 +50,13 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Sửa môn học qua subjectID
+        /// </summary>
+        /// <param name="subject">Thông tin mới của môn</param>
+        /// <param name="subjectID">Mã ID của môn</param>
+        /// <returns>Số lượng môn sửa</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int UpdateSubjectByID(Subject subject, int subjectID)
         {
             using(_mySqlConnection =new MySqlConnection(connectString))
@@ -66,6 +85,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Xóa môn qua subjectID
+        /// </summary>
+        /// <param name="subjectID">Mã ID của môn</param>
+        /// <returns>Số lượng của môn xóa</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int DeleteSubjectByID(int subjectID)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -78,5 +103,6 @@ namespace MISA.Edu06.Infrastructure.Repository
                 return res;
             }
         }
+        #endregion
     }
 }

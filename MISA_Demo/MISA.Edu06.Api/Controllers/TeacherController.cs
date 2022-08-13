@@ -14,18 +14,25 @@ namespace MISA.Edu06.Api.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
+        #region Properties
         private readonly ITeacherRepository _teacherRepository;
         private readonly ITeacherService _teacherService;
+        #endregion
+
+        #region Constructor
         public TeacherController(ITeacherRepository teacherRepository, ITeacherService teacherService)
         {
             _teacherRepository = teacherRepository;
             _teacherService = teacherService;
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Lấy ra thông tin tất cả giáo viên
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Thông tin tất cả giáo viên</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpGet]
         public IActionResult Get()
         {
@@ -49,8 +56,9 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Lấy thông tin của giáo viên qua teacherID
         /// </summary>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacherID">Mã ID của giáo viên đó</param>
+        /// <returns>Thông tin giáo viên</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpGet("{teacherID}")]
         public IActionResult GetTeacherByID(Guid teacherID)
         {
@@ -76,7 +84,7 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Tạo ra một mã giáo viên mới
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Tạo ra mã giáo viên mới</returns>
         /// CreatedBy: TNDanh (8/8/2022)
         [HttpGet("NewTeacherCode")]
         public string NewTeacherCode()
@@ -88,11 +96,10 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Tìm kiếm bằng mã giáo viên hoặc tên giáo viên và phân trang
         /// </summary>
-        /// <param name="teacherCode"></param>
-        /// <param name="teacherName"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns></returns>
+        /// <param name="search">Từ tìm kiếm tên hoặc mã giáo viên</param>
+        /// <param name="pageSize">Số lượng giáo viên</param>
+        /// <param name="pageNumber">Chỉ số trang</param>
+        /// <returns>Thông tin các giáo viên</returns>
         /// CreatedBy: TNDanh (10/8/2022)
         [HttpGet("Filter")]
         public IActionResult FilterTeacher([FromQuery]string? search, [FromQuery]int pageSize = 20, [FromQuery]int pageNumber = 1)
@@ -104,8 +111,8 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Thêm giáo viên
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <returns></returns>
+        /// <param name="teacher">Thông tin giáo viên</param>
+        /// <returns>Số lượng thêm giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         [HttpPost()]
         public IActionResult AddNewTeacher(Teacher teacher)
@@ -142,9 +149,9 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Sửa thông tin giáo viên
         /// </summary>
-        /// <param name="teacher"></param>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacher">Thông tin mới của giáo viên đó</param>
+        /// <param name="teacherID">Mã ID của giáo viên đó</param>
+        /// <returns>Số lượng giáo viên sửa</returns>
         /// CreatedBy: TNDanh (4/8/2022)
         [HttpPut("{teacherID}")]
         public IActionResult EditTeacher(Teacher teacher, Guid teacherID)
@@ -157,8 +164,8 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Xóa teacher qua teacherID
         /// </summary>
-        /// <param name="teacherID"></param>
-        /// <returns></returns>
+        /// <param name="teacherID">Mã ID của giáo viên</param>
+        /// <returns>Số lượng giáo viên xóa</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         [HttpDelete("{teacherID}")]
         public IActionResult DeleteTeacherByID(Guid teacherID)
@@ -183,8 +190,8 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         ///  Xóa nhiều giáo viên qua teacherID từ body
         /// </summary>
-        /// <param name="listTeacher"></param>
-        /// <returns></returns>
+        /// <param name="listTeacher">Danh sách teacherID</param>
+        /// <returns>Số lượng giáo viên xóa</returns>
         [HttpDelete]
         public IActionResult DeleteListTeacher([FromBody] Guid[] listTeacher)
         {
@@ -203,5 +210,6 @@ namespace MISA.Edu06.Api.Controllers
                 return BadRequest(error);
             }
         }
+        #endregion
     }
 }

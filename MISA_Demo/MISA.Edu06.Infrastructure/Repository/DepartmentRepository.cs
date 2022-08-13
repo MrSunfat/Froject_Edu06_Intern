@@ -7,6 +7,12 @@ namespace MISA.Edu06.Infrastructure.Repository
 {
     public class DepartmentRepository : BaseRepository, IDepartmentRepository
     {
+        #region Methods
+        /// <summary>
+        /// Lấy tất cả thông tin tổ hợp môn
+        /// </summary>
+        /// <returns>Tất cả thông tin của tổ hợp môn</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public IEnumerable<Department> GetAll()
         {
             using(_mySqlConnection = new MySqlConnection(connectString))
@@ -17,6 +23,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Thêm tổ hợp môn mới
+        /// </summary>
+        /// <param name="department">Thông tin của tổ hợp môn</param>
+        /// <returns>Số lượng tổ hợp môn</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int AddNewDepartment(Department department)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -37,6 +49,13 @@ namespace MISA.Edu06.Infrastructure.Repository
                 return res;
             }
         }
+
+        /// <summary>
+        /// Sửa tổ hợp môn qua departmentID
+        /// </summary>
+        /// <param name="department">Thông tin mới của tổ hợp môn</param>
+        /// <param name="departmentID">Mã ID của tổ hợp môn</param>
+        /// <returns>Số lượng tổ hợp môn sửa</returns>
         public int UpdateDepartmentByID(Department department, int departmentID)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -52,6 +71,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Xóa giáo viên qua departmentID
+        /// </summary>
+        /// <param name="departmentID">Mã ID của tổ hợp môn</param>
+        /// <returns>Số lượng tổ hợp môn xóa</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int DeleteDepartmentByID(int departmentID)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -66,6 +91,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Kiểm tra tên tổ hợp môn có trùng không ?
+        /// </summary>
+        /// <param name="departmentName">Mã ID của tổ hợp môn</param>
+        /// <returns>True - Trùng, False - Không trùng</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public bool CheckDepartmentNameDuplicate(string departmentName)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -83,5 +114,6 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
             return false;
         }
+        #endregion
     }
 }

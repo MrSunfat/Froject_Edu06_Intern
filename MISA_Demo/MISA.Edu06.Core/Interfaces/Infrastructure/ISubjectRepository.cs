@@ -19,22 +19,22 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// <summary>
         /// Thêm một thông tin môn mới
         /// </summary>
-        /// <param name="subject"></param>
+        /// <param name="subject">Thông tin môn học</param>
         /// <returns>Số lượng môn học mới được thêm</returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int AddNewSubject(Subject subject);
         /// <summary>
         /// Sửa thông tin môn học qua id
         /// </summary>
-        /// <param name="subject"></param>
-        /// <param name="subjectID"></param>
+        /// <param name="subject">Thông tin môn học</param>
+        /// <param name="subjectID">Mã ID của môn học</param>
         /// <returns>Số lượng môn học sửa đổi</returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int UpdateSubjectByID(Subject subject, int subjectID);
         /// <summary>
         /// Xóa thông tin môn qua id
         /// </summary>
-        /// <param name="subjectID"></param>
+        /// <param name="subjectID">Mã ID của môn học</param>
         /// <returns>Số lượng giáo viên bị xóa</returns>
         /// CreatedBy: TNDanh (5/8/2022)
         public int DeleteSubjectByID(int subjectID);

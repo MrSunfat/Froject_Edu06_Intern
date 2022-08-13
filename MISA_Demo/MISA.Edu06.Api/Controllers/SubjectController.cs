@@ -11,16 +11,25 @@ namespace MISA.Edu06.Api.Controllers
     [ApiController]
     public class SubjectController : ControllerBase
     {
+        #region Properties
         private readonly ISubjectRepository _subjectRepository;
         private readonly ISubjectService _subjectService;
+        #endregion
 
-
+        #region Constructor
         public SubjectController(ISubjectRepository subjectRepository, ISubjectService subjectService)
         {
             _subjectRepository = subjectRepository;
             _subjectService = subjectService;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Lấy tất cả môn học 
+        /// </summary>
+        /// <returns>Tất cả môn học</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -28,6 +37,12 @@ namespace MISA.Edu06.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Thêm môn học mới
+        /// </summary>
+        /// <param name="subject">Thông tin của môn học mới</param>
+        /// <returns>Số lượng môn học thêm mới</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpPost]
         public IActionResult AddNewSubject(Subject subject)
         {
@@ -59,6 +74,13 @@ namespace MISA.Edu06.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Sửa môn học qua subjectID
+        /// </summary>
+        /// <param name="subject">Thông tin mới của môn học</param>
+        /// <param name="subjectID">Mã ID của môn học</param>
+        /// <returns>Số lượng môn học sửa</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpPut("{subjectID}")]
         public IActionResult EditSubjectByID(Subject subject, int subjectID)
         {
@@ -90,11 +112,18 @@ namespace MISA.Edu06.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Xóa môn học qua subjectID
+        /// </summary>
+        /// <param name="subjectID">Mã ID của môn học</param>
+        /// <returns>Số lượng môn xóa</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         [HttpDelete("{subjectID}")]
         public int DeleteSubjectByID(int subjectID)
         {
             var res = _subjectRepository.DeleteSubjectByID(subjectID);
             return res;
         }
+        #endregion
     }
 }

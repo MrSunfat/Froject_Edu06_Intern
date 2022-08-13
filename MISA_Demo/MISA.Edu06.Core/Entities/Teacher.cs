@@ -8,38 +8,66 @@ namespace MISA.Edu06.Core.Entities
 {
     public class Teacher
     {
-        #region Properties of Teacher
-        // ID của giáo viên
+        #region Properties 
+        /// <summary>
+        /// ID của giáo viên 
+        /// </summary>
         public Guid TeacherID { get; set; }
-        // Mã giáo viên
+ 
+        /// <summary>
+        /// Mã giáo viên 
+        /// </summary>
         public string TeacherCode { get; set; }
-        // Tên giáo viên
+       
+        /// <summary>
+        /// Tên giáo viên
+        /// </summary>
         public string FullName { get; set; }
-        // Email
+        
+        /// <summary>
+        /// Email
+        /// </summary>
         public string? Email { get; set; }
-        // Số điện thoại
+        
+        /// <summary>
+        /// Số điện thoại
+        /// </summary>
         public string? PhoneNumber { get; set; }
-        // ID của tổ hợp môn
+        
+        /// <summary>
+        /// ID của tổ hợp môn 
+        /// </summary>
         public int? DepartmentID { get; set; }
-        // tên tổ hợp môn
+        
+        /// <summary>
+        /// Tên tổ hợp môn
+        /// </summary>
         public string? DepartmentName { get; set; }
-        // trình độ nghiệp vụ
+        
+        /// <summary>
+        /// Trình độ nghiệp vụ
+        /// </summary>
         public Boolean? IsProfessionalQualifications { get; set; }
-        // tình trạng công việc
+        
+        /// <summary>
+        /// Tình trạng công việc
+        /// </summary>
         public Boolean? IsWorking { get; set; }
-        // ngày nghỉ việc
+        
+        /// <summary>
+        /// Ngày nghỉ việc
+        /// </summary>
         public DateTime? DayOff { get; set; }
-        // danh sách các môn học
+        
+        /// <summary>
+        /// Danh sách môn học
+        /// </summary>
         public List<Subject> ListSubject { get; set; } = new List<Subject>();
+        
         /// <summary>
-        /// 
+        /// Danh sách phòng thiết bị
         /// </summary>
-        // danh sách các phòng thiết bị
         public List<EquimentRoom> ListRoom { get; set; } = new List<EquimentRoom>();
-        /// <summary>
-        /// 
-        /// </summary>
-        public int MyProperty { get; set; }
         #endregion
 
     }

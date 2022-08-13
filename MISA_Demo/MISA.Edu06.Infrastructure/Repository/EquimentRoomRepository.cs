@@ -12,6 +12,12 @@ namespace MISA.Edu06.Infrastructure.Repository
 {
     public class EquimentRoomRepository : BaseRepository, IEquimentRoomRepository
     {
+        #region Methods
+        /// <summary>
+        /// Lấy tất cả thông phòng
+        /// </summary>
+        /// <returns>Tất cả thông phòng</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public IEnumerable<EquimentRoom> GetAll()
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -22,6 +28,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Thêm phòng mới
+        /// </summary>
+        /// <param name="room">Thông tin phòng mới</param>
+        /// <returns>Số lượng phòng mới</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int AddNewRoom(EquimentRoom room)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -43,6 +55,14 @@ namespace MISA.Edu06.Infrastructure.Repository
                 return res;
             }
         }
+
+        /// <summary>
+        /// Sửa thông tin phòng qua roomID
+        /// </summary>
+        /// <param name="room">Thông tin mới của phòng</param>
+        /// <param name="roomID">Mã ID của phòng đó</param>
+        /// <returns>Số lượng phòng sửa</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int UpdateRoomByID(EquimentRoom room, int roomID)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -58,6 +78,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Xóa phòng qua roomID
+        /// </summary>
+        /// <param name="roomID">Mã ID của phòng</param>
+        /// <returns>Số lượng phòng xóa</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public int DeleteRoomByID(int roomID)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -70,10 +96,6 @@ namespace MISA.Edu06.Infrastructure.Repository
                 return res;
             }
         }
-
-        public bool CheckRoomNameDuplicate(string departmentName)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

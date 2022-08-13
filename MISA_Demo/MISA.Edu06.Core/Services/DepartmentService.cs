@@ -24,23 +24,26 @@ namespace MISA.Edu06.Core.Services
         #endregion
 
         #region Methods
-
+        /// <summary>
+        /// Validate tổ hợp môn trước khi sửa
+        /// </summary>
+        /// <param name="department">Thông tin mới của tổ hợp môn</param>
+        /// <returns>Số lượng tổ hợp môn sửa</returns>
+        /// <exception cref="EduValidateException">Thông báo lỗi</exception>
         public int ValidateService(Department department)
         {
             // 1. Tên phòng ban không được trống
             if (string.IsNullOrEmpty(department.DepartmentName) == true)
             {
-                throw new EduValidateException(Resources.Content.departmentNameNotEmpty);
+                throw new EduValidateException(Resources.Content.E_DepartmentNameNotEmpty);
             }
             // 2. Tên phòng ban không được giống nhau
             if (_departmentRepository.CheckDepartmentNameDuplicate(department.DepartmentName) == true)
             {
-                throw new EduValidateException(Resources.Content.departmentNameNotDuplicate);
+                throw new EduValidateException(Resources.Content.E_DepartmentNameNotDuplicate);
             }
             return 1;
         }
         #endregion
-
-
     }
 }

@@ -9,8 +9,20 @@ namespace MISA.Edu06.Core.Interfaces.Services
 {
     public interface ISubjectService
     {
-        #region Kiểm tra tên  môn học và ID của tổ hợp môn
+        #region Methods
+        /// <summary>
+        /// Validate môn học trước khi thêm vào
+        /// </summary>
+        /// <param name="subject">Thông tin của môn học</param>
+        /// <returns>Số lượng môn học validate</returns>
+        /// CreaedBy: TNDanh (13/8/2022)
         public int InsertService(Subject subject);
+        /// <summary>
+        /// Validate môn học trước khi sửa
+        /// </summary>
+        /// <param name="subject">Thông tin mới của môn học</param>
+        /// <returns>Số lượng môn học validate</returns>
+        /// CreaedBy: TNDanh (13/8/2022)
         public int UpdateService(Subject subject);
         #endregion
     }

@@ -22,7 +22,7 @@ namespace MISA.Edu06.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Content {
+    public class Content {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MISA.Edu06.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MISA.Edu06.Core.Resources.Content", typeof(Content).Assembly);
@@ -51,7 +51,7 @@ namespace MISA.Edu06.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,81 +63,90 @@ namespace MISA.Edu06.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ID của tổ hợp môn không được trống !.
         /// </summary>
-        internal static string DepartmentIDNotEmpty {
+        public static string E_DepartmentIDNotEmpty {
             get {
-                return ResourceManager.GetString("DepartmentIDNotEmpty", resourceCulture);
+                return ResourceManager.GetString("E_DepartmentIDNotEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ID của tổ hợp môn không tìm thấy trong các tổ hợp môn !.
         /// </summary>
-        internal static string departmentIDNotFound {
+        public static string E_DepartmentIDNotFound {
             get {
-                return ResourceManager.GetString("departmentIDNotFound", resourceCulture);
+                return ResourceManager.GetString("E_DepartmentIDNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Tên tổ hợp môn không được trùng nhau !.
         /// </summary>
-        internal static string departmentNameNotDuplicate {
+        public static string E_DepartmentNameNotDuplicate {
             get {
-                return ResourceManager.GetString("departmentNameNotDuplicate", resourceCulture);
+                return ResourceManager.GetString("E_DepartmentNameNotDuplicate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Tên tổ hợp môn không được trống !.
         /// </summary>
-        internal static string departmentNameNotEmpty {
+        public static string E_DepartmentNameNotEmpty {
             get {
-                return ResourceManager.GetString("departmentNameNotEmpty", resourceCulture);
+                return ResourceManager.GetString("E_DepartmentNameNotEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tện môn học không được phép trùng nhau !.
+        ///   Looks up a localized string similar to Tên môn học không được phép trùng nhau !.
         /// </summary>
-        internal static string subjectNameNotDuplicate {
+        public static string E_SubjectNameNotDuplicate {
             get {
-                return ResourceManager.GetString("subjectNameNotDuplicate", resourceCulture);
+                return ResourceManager.GetString("E_SubjectNameNotDuplicate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tện môn học không được phép trống !.
+        ///   Looks up a localized string similar to Tên môn học không được phép trống !.
         /// </summary>
-        internal static string subjectNameNotEmpty {
+        public static string E_SubjectNameNotEmpty {
             get {
-                return ResourceManager.GetString("subjectNameNotEmpty", resourceCulture);
+                return ResourceManager.GetString("E_SubjectNameNotEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mã giáo viên không được phép để trùng nhau !.
         /// </summary>
-        internal static string teacherCodeNotDuplicate {
+        public static string E_TeacherCodeNotDuplicate {
             get {
-                return ResourceManager.GetString("teacherCodeNotDuplicate", resourceCulture);
+                return ResourceManager.GetString("E_TeacherCodeNotDuplicate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mã giáo viên không được phép để trống !.
         /// </summary>
-        internal static string teacherCodeNotEmpty {
+        public static string E_TeacherCodeNotEmpty {
             get {
-                return ResourceManager.GetString("teacherCodeNotEmpty", resourceCulture);
+                return ResourceManager.GetString("E_TeacherCodeNotEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Tên giáo viên không được phép để trống !.
         /// </summary>
-        internal static string teacherNameNotEmpty {
+        public static string E_TeacherNameNotEmpty {
             get {
-                return ResourceManager.GetString("teacherNameNotEmpty", resourceCulture);
+                return ResourceManager.GetString("E_TeacherNameNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thêm thành công !.
+        /// </summary>
+        public static string S_PostContent {
+            get {
+                return ResourceManager.GetString("S_PostContent", resourceCulture);
             }
         }
     }

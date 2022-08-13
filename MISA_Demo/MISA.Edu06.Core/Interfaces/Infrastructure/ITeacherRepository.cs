@@ -70,10 +70,11 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// CreatedBy: TNDanh (5/8/2022)
         public object FilterTeacher(string? search, int pageSize, int pageNumber);
         /// <summary>
-        /// Kiểm tra mã giáo viên bị trùng
+        /// Kiểm tra mã giáo viên bị trùng ?
         /// </summary>
-        /// <param name="teacherCode"></param>
-        /// <returns></returns>
+        /// <param name="teacherCode">Mã giáo viên</param>
+        /// <returns>True - Trùng, False - Không trùng</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         public bool CheckTeacherCodeDuplicate(string teacherCode);
         #endregion
     }

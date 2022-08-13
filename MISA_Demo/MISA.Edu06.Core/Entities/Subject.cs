@@ -8,10 +8,15 @@ namespace MISA.Edu06.Core.Entities
 {
     public class Subject
     {
-        #region Properties of Subject
-        // ID của môn học
+        #region Properties
+        /// <summary>
+        /// ID của môn học 
+        /// </summary>
         public int SubjectID { get; set; }
-        // tên môn học
+     
+        /// <summary>
+        /// tên môn học 
+        /// </summary>
         public string SubjectName { get; set; }
         #endregion
     }

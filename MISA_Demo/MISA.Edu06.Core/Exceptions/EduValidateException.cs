@@ -20,6 +20,9 @@ namespace MISA.Edu06.Core.Exceptions
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Nội dụng lỗi
+        /// </summary>
         public override string Message
         {
             get { return MsgErrorValidate; }

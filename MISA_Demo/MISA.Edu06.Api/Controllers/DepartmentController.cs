@@ -11,14 +11,20 @@ namespace MISA.Edu06.Api.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
+        #region Properties
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IDepartmentService _departmentService;
+        #endregion
+
+        #region Constructor
         public DepartmentController(IDepartmentRepository departmentRepository, IDepartmentService departmentService) 
         {
             _departmentRepository = departmentRepository;
             _departmentService = departmentService;
         }
+        #endregion
 
+        #region Functions
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -82,5 +88,6 @@ namespace MISA.Edu06.Api.Controllers
             var res = _departmentRepository.DeleteDepartmentByID(departmentId);
             return Ok(res);
         }
+        #endregion
     }
 }

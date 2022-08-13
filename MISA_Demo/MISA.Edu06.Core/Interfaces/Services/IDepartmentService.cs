@@ -15,6 +15,7 @@ namespace MISA.Edu06.Core.Interfaces.Services
         /// </summary>
         /// <param name="department">Tổ hợp môn</param>
         /// <returns>Validate thông tin tổ hợp môn</returns>
+        /// CreatedBy: TNDanh (13/8/2022)
         public int ValidateService(Department department);
         #endregion
     }

@@ -304,8 +304,8 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// </summary>
         /// <param name="connection">Kết nối DB</param>
         /// <param name="sqlCommand">Câu lệnh</param>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">param truyền vào câu truy vấn</param>
+        /// <returns>Danh sách các giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         public static List<Teacher> FormatTeacher(MySqlConnection connection, string sqlCommand, object values)
         {
@@ -433,8 +433,9 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Kiểm tra mã giáo viên có trùng không ?
         /// </summary>
-        /// <param name="teacherCode"></param>
-        /// <returns></returns>
+        /// <param name="teacherCode">Mã giáo viên</param>
+        /// <returns>True - Trùng, False - Không trùng</returns>
+        /// CreatedBy: TNDanh (14/8/2022)
         public bool CheckTeacherCodeDuplicate(string teacherCode)
         {
             using (_mySqlConnection = new MySqlConnection(connectString))
@@ -455,10 +456,10 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <summary>
         /// Lọc các giáo viên bằng từ khóa và phân trang
         /// </summary>
-        /// <param name="search"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns></returns>
+        /// <param name="search">Từ khóa tìm kiếm</param>
+        /// <param name="pageSize">Số lượng bản ghi</param>
+        /// <param name="pageNumber">Chỉ số phân trang</param>
+        /// <returns>Dữ liệu gồm số lượng bản ghi, số lượng trang và danh sách giáo viên</returns>
         /// CreatedBy: TNDanh (11/8/2022)
         public object FilterTeacher(string? search, int pageSize, int pageNumber)
         {
