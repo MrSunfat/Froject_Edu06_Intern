@@ -1,5 +1,5 @@
 <template>
-  <div class="device-page">DevicePage</div>
+  <div class="device-page">Tính năng đang phát triển</div>
 </template>
 
 <script>

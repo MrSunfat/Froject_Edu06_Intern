@@ -210,7 +210,13 @@ h5 {
 
 .title {
     font-family: Open Sans SemiBold;
-    font-size: 16px;
+    font-size: 18px !important;
+    line-height: 19px;
+}
+
+.title-column {
+    font-family: Open Sans SemiBold;
+    font-size: 14px;
     line-height: 19px;
 }
 
@@ -222,13 +228,13 @@ h5 {
 
 .subtitle-one {
     font-family: Open Sans Regular;
-    font-size: 14px;
+    font-size: 14px !important;
     line-height: 20px;
 }
 
 .subtitle-two {
     font-family: Open Sans Regular;
-    font-size: 13px;
+    font-size: 13px !important;
     line-height: 18px;
 }
 

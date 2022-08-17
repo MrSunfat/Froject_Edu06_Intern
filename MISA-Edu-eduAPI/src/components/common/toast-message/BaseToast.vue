@@ -122,7 +122,6 @@ export default {
     setTimeout(
       () => {
         this.handleCloseToast();
-        // console.log(this.linkToast);
       },
       this.linkToast.title ? 5000 : 3000
     );

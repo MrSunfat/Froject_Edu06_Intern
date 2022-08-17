@@ -1,5 +1,5 @@
 <template>
-  <div class="report-page">ReportPage</div>
+  <div class="report-page">Tính năng đang phát triển</div>
 </template>
 
 <script>

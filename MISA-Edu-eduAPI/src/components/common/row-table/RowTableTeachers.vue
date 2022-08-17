@@ -29,23 +29,21 @@
     <td
       class="btn regular-text name-teacher c-p"
       @click="handleClickEdit(teacher.TeacherID, teacher)"
+      :title="teacher?.FullName"
     >
       {{ teacher?.FullName }}
     </td>
     <td class="btn regular-text">
       {{ teacher?.PhoneNumber }}
     </td>
-    <td class="btn regular-text">
-      {{ teacher?.Email }}
-    </td>
-    <td class="subtitle-one">
+    <td class="subtitle-one department-column" :title="teacher?.DepartmentName">
       {{ teacher?.DepartmentName }}
     </td>
-    <td class="subtitle-one">
-      {{ teacher?.ListSubject?.map((sub) => sub.SubjectName).join(", ") }}
+    <td class="subtitle-one subjectname-column" :title="teacher?.SubjectName">
+      {{ teacher?.SubjectName }}
     </td>
-    <td class="subtitle-one">
-      {{ teacher?.ListRoom?.map((room) => room.EquimentRoomName).join(", ") }}
+    <td class="subtitle-one room-column" :title="teacher?.Room">
+      {{ teacher?.Room }}
     </td>
     <td class="subtitle-one">
       <div
@@ -103,7 +101,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import axios from "axios";
 import urlEmployees from "@/scripts/constants/urlTeachers";
 import typeToast from "../../../scripts/enum/typeToast";
@@ -128,7 +126,6 @@ export default {
   props: {
     teacher: {
       type: Object,
-      default: () => {},
     },
   },
   methods: {
@@ -147,7 +144,7 @@ export default {
      * Tran Danh (25/7/2022)
      */
     handleClickDelete() {
-      this.SET_TEACHER_CURRENT({
+      this.setTeacherCurrent({
         id: this.teacher.TeacherID,
         name: this.teacher.FullName,
       });
@@ -158,7 +155,7 @@ export default {
      * Tran Danh (215/7/2022)
      */
     handleClickEdit(teacherId, teacher) {
-      this.SET_TEACHER_CURRENT({
+      this.setTeacherCurrent({
         id: teacherId,
         name: teacher.FullName,
       });
@@ -166,8 +163,7 @@ export default {
       axios
         .get(`${urlEmployees}/${teacherId}`)
         .then((res) => {
-          // console.log(res);
-          this.SET_NEWTEACHER({
+          this.setNewTeacher({
             TeacherCode: res.data.TeacherCode,
             FullName: res.data.FullName,
             PhoneNumber: res.data.PhoneNumber,
@@ -180,9 +176,16 @@ export default {
 
       this.$emit("editTeacherInfo");
     },
-    ...mapMutations(["SET_TEACHER_CURRENT", "SET_NEWTEACHER"]),
+    /**
+     * Chỉnh sửa các danh sách item thành chuỗi
+     * Author: TNDanh (15/8/2022)
+     */
+    stringListItems(listItem, prop) {
+      return listItem.map((item) => item[prop]);
+    },
+    ...mapMutations(["setTeacherCurrent", "setNewTeacher"]),
   },
-  computed: mapGetters(["teacher"]),
+  computed: {},
 };
 </script>
 
@@ -237,8 +240,8 @@ tr.checked {
 
 .name-teacher {
   color: var(--main-color);
-  min-width: 250px;
-  max-width: 350px;
+  min-width: 150px;
+  max-width: 205px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -257,5 +260,26 @@ tr.checked {
 
 .regular-text {
   font-family: Open Sans Regular;
+}
+
+.department-column {
+  max-width: 128px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subjectname-column {
+  max-width: 98px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.room-column {
+  max-width: 182px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

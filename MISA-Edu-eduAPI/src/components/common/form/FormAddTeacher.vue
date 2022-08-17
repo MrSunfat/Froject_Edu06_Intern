@@ -47,6 +47,7 @@
               :class="{
                 error: this.bindingErrorIP.teacherCode,
               }"
+              :duplicate="constanst.warningContent.codeDuplicate"
               @hideError="handleHideError"
             />
             <h-label-input
@@ -77,25 +78,76 @@
               @showError="handleShowError"
               @hideError="handleHideError"
             />
-            <drop-down-one
+            <!-- <drop-down-one
               :label="constanst.propertiesTeacher.subjectGroup"
               :tabindex="5"
               :dbDropdown="dbDropdown"
               @changeOption="handleChangeOption"
-            />
-            <tag-comp
-              :label="constanst.propertiesTeacher.subject"
-              :tabindex="6"
-              :listSubject="listSubject"
-              @selectSubject="handleSelectSubject"
-              @isCheckAll="isCheckAll"
-              @deleteSubject="deleteSubject"
+            /> -->
+            <div class="dropdown d-flex">
+              <label class="subtitle-two d-flex dropdown__label">
+                Tổ bộ môn
+              </label>
+              <DxSelectBox
+                class="ip-default dropdown__container mw-190 d-flex"
+                ref="ms-selectbox"
+                :search-enabled="true"
+                :items="dbDropdown.listSubjectGroup"
+                display-expr="DepartmentName"
+                value-expr="DepartmentID"
+                v-model:value="departmentModel"
+                placeholder=""
+                noDataText="Không tìm thấy tổ hợp môn phù hợp !"
+                :tabIndex="5"
+              />
+            </div>
+            <div class="dropdown d-flex">
+              <label class="subtitle-two d-flex dropdown__label">
+                QL theo môn
+              </label>
+              <DxTagBox
+                class="ip-default dropdown__container d-flex"
+                :search-enabled="true"
+                :items="dbDropdown.listSubject"
+                :show-selection-controls="true"
+                :max-displayed-tags="3"
+                display-expr="SubjectName"
+                value-expr="SubjectID"
+                placeholder=""
+                selectAllText="Tất cả"
+                v-model:value="listSubjectModel"
+                :showDropDownButton="true"
+                :multiline="false"
+                @multiTagPreparing="onMultiTagPreparingDepartment"
+                noDataText="Không tìm thấy tổ hợp môn phù hợp !"
+                :tabIndex="6"
+              />
+            </div>
+          </div>
+          <div class="inputs__main__two"></div>
+          <div class="dropdown d-flex">
+            <label class="subtitle-two d-flex dropdown__label">
+              QL theo môn
+            </label>
+            <DxTagBox
+              class="ip-default dropdown__container d-flex"
+              :search-enabled="true"
+              :items="dbDropdown.listRoom"
+              :show-selection-controls="true"
+              :max-displayed-tags="3"
+              display-expr="EquimentRoomName"
+              value-expr="EquimentRoomID"
+              placeholder=""
+              selectAllText="Tất cả"
+              v-model:value="listRoomModel"
+              :showDropDownButton="true"
+              :multiline="false"
+              @multiTagPreparing="onMultiTagPreparingRoom"
+              noDataText="Không tìm thấy tổ hợp môn phù hợp !"
+              :tabIndex="7"
             />
           </div>
-          <div class="inputs__main__two">
-            <!-- <drop-down-one /> -->
-          </div>
-          <tag-comp
+          <!-- <tag-comp
             :label="constanst.propertiesTeacher.department"
             :tabindex="7"
             :listSubject="listGroup"
@@ -103,7 +155,8 @@
             @isCheckAll="isCheckAll"
             @deleteSubject="deleteSubject"
             typeTag="lab"
-          />
+          /> -->
+
           <!-- <drop-down-one /> -->
           <div class="inputs__main__three d-flex">
             <div class="career-level d-flex">
@@ -165,14 +218,14 @@
             class="inputs__btns__close"
             type="second-btn"
             nameBtn="Đóng"
-            tabindex="11"
+            tabindex="12"
             :handleClick="handleCloseFormAddTeacher"
           />
           <base-btn
             class="inputs__btns__save mg-l-8"
             type="primary-btn"
             nameBtn="Lưu"
-            tabindex="12"
+            tabindex="11"
             :handleClick="validateForm"
           />
           <!-- v-on:selectOption="handleSelectOption" -->
@@ -190,17 +243,17 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import BaseBtn from "@/components/common/button/BaseBtn.vue";
-import DropDownOne from "@/components/common/input/DropDownOne.vue";
 import HLabelInput from "@/components/common/input/horizontal/HLabelInput.vue";
 import InputDate from "@/components/common/input/InputDate.vue";
-import TagComp from "@/components/common/input/TagComp.vue";
 import LoadingComp from "@/components/common/loading/LoadingComp.vue";
 // img
-import avatarDefault from "@/assets/Icons/ic_Avatar_36.png";
+import avatarDefault from "@/assets/Icons/avatar-default.jpg";
 import checkboxInactive from "@/assets/Icons/ic_Checkbox_Inactive.png";
 import checkboxHover from "@/assets/Icons/ic_Checkbox_Hover.png";
 import checkboxActive from "@/assets/Icons/ic_Checkbox_Active.png";
 import closeIcon from "@/assets/Icons/ic_X_2.png";
+import DxSelectBox from "devextreme-vue/select-box";
+import DxTagBox from "devextreme-vue/tag-box";
 
 // constanst
 import constanst from "@/scripts/constants/constants";
@@ -214,11 +267,11 @@ export default {
   },
   components: {
     HLabelInput,
-    DropDownOne,
     InputDate,
     BaseBtn,
-    TagComp,
     LoadingComp,
+    DxSelectBox,
+    DxTagBox,
   },
   data() {
     return {
@@ -231,24 +284,128 @@ export default {
       dbDropdown: {
         listSubjectGroup: [
           {
-            name: "Tổ toán tin",
-            selected: false,
+            DepartmentID: 1,
+            DepartmentName: "Tổ Sử - Địa - GDCD",
           },
           {
-            name: "Tổ hóa lý",
-            selected: true,
+            DepartmentID: 2,
+            DepartmentName: "Tổ Toán - Tin",
           },
           {
-            name: "Tổ sinh",
-            selected: false,
+            DepartmentID: 3,
+            DepartmentName: "Tổ Thể Dục - Âm nhạc - Mĩ thuật",
           },
           {
-            name: "Tổ sử địa",
-            selected: false,
+            DepartmentID: 4,
+            DepartmentName: "Tổ Anh Văn",
           },
           {
-            name: "Tổ văn học",
-            selected: false,
+            DepartmentID: 5,
+            DepartmentName: "Tổ Ngữ văn",
+          },
+          {
+            DepartmentID: 6,
+            DepartmentName: "Tổ Lý - Công nghệ",
+          },
+          {
+            DepartmentID: 7,
+            DepartmentName: "Tổ Hóa - Sinh",
+          },
+          {
+            DepartmentID: 8,
+            DepartmentName: "P.Văn phòng",
+          },
+          {
+            DepartmentID: 9,
+            DepartmentName: "Văn phòng",
+          },
+          {
+            DepartmentID: 10,
+            DepartmentName: "Phòng ăn trưa",
+          },
+        ],
+        listSubject: [
+          {
+            SubjectID: 1,
+            SubjectName: "Giáo dục CD",
+          },
+          {
+            SubjectID: 2,
+            SubjectName: "Mỹ thuật",
+          },
+          {
+            SubjectID: 3,
+            SubjectName: "Ngoại ngữ",
+          },
+          {
+            SubjectID: 4,
+            SubjectName: "Vật lý",
+          },
+          {
+            SubjectID: 5,
+            SubjectName: "Toán",
+          },
+          {
+            SubjectID: 6,
+            SubjectName: "Sinh học",
+          },
+          {
+            SubjectID: 7,
+            SubjectName: "Hóa học",
+          },
+          {
+            SubjectID: 8,
+            SubjectName: "Ngữ văn",
+          },
+          {
+            SubjectID: 9,
+            SubjectName: "Địa lý",
+          },
+          {
+            SubjectID: 10,
+            SubjectName: "Thể dục",
+          },
+          {
+            SubjectID: 11,
+            SubjectName: "Lịch sử",
+          },
+          {
+            SubjectID: 12,
+            SubjectName: "Âm nhạc (Cổ điển)",
+          },
+          {
+            SubjectID: 13,
+            SubjectName: "Cổ cầm",
+          },
+        ],
+        listRoom: [
+          {
+            EquimentRoomID: 1,
+            EquimentRoomName: "Kho phòng chung",
+          },
+          {
+            EquimentRoomID: 2,
+            EquimentRoomName: "Phòng âm nhạc mỹ thuật",
+          },
+          {
+            EquimentRoomID: 3,
+            EquimentRoomName: "Phòng Hóa Sinh",
+          },
+          {
+            EquimentRoomID: 4,
+            EquimentRoomName: "Phòng Toán lý",
+          },
+          {
+            EquimentRoomID: 5,
+            EquimentRoomName: "Phòng Sử Địa GDCD",
+          },
+          {
+            EquimentRoomID: 6,
+            EquimentRoomName: "Phòng Tin học",
+          },
+          {
+            EquimentRoomID: 7,
+            EquimentRoomName: "Phòng Máy tính",
           },
         ],
         optionSelected: "",
@@ -261,7 +418,7 @@ export default {
         {
           id: "Math",
           name: "Toán",
-          selected: true,
+          selected: false,
         },
         {
           id: "Physics",
@@ -271,17 +428,17 @@ export default {
         {
           id: "Chemistry",
           name: "Hóa học",
-          selected: true,
+          selected: false,
         },
         {
           id: "Bio",
           name: "Sinh học",
-          selected: true,
+          selected: false,
         },
         {
           id: "History",
           name: "Lịch sử",
-          selected: true,
+          selected: false,
         },
       ],
       listGroup: [
@@ -293,12 +450,12 @@ export default {
         {
           id: "chemistry-lab",
           name: "Phòng Hóa-Sinh",
-          selected: true,
+          selected: false,
         },
         {
           id: "common-room",
           name: "Kho phòng chung",
-          selected: true,
+          selected: false,
         },
       ],
       bindingErrorIP: {
@@ -309,6 +466,28 @@ export default {
       },
       srcAvatar: avatarDefault,
       constanst,
+      departmentModel: "",
+      listSubjectModel: [],
+      listRoomModel: [],
+
+      onMultiTagPreparingDepartment: (args) => {
+        let itemSize = args.selectedItems.length;
+        let totalCount = this.dbDropdown.listSubject.length;
+        if (itemSize < totalCount) {
+          args.cancel = true;
+        } else {
+          args.text = "Tất cả";
+        }
+      },
+      onMultiTagPreparingRoom: (args) => {
+        let itemSize = args.selectedItems.length;
+        let totalCount = this.dbDropdown.listRoom.length;
+        if (itemSize < totalCount) {
+          args.cancel = true;
+        } else {
+          args.text = "Tất cả";
+        }
+      },
     };
   },
   methods: {
@@ -334,20 +513,20 @@ export default {
     */
     handleCloseFormAddTeacher() {
       this.$emit("closeFormAddTeacher");
-      // this.SET_TEACHER_CURRENT({ id: "", name: "" });
-      // this.setEmptyTeacher();
+      this.teacher.DepartmentID = "";
     },
     /*
       Xử lý khi lưu dữ liệu
       Author: Tran Danh (16/7/2022)
     */
-    validateForm() {
+    async validateForm() {
       // I. EmployeeCode trống
       if (!this.TeacherCode) {
         this.bindingErrorIP.teacherCode = true;
         // 1. Kiểm tra FullName
         if (!this.FullName) {
           this.bindingErrorIP.fullName = true;
+          this.$refs.firstFocus?.focus();
         } else {
           this.bindingErrorIP.fullName = false;
         }
@@ -362,17 +541,34 @@ export default {
           this.bindingErrorIP.fullName = false;
           // 1a. kiểm tra các ô khác (nếu có dữ liệu) đúng format chưa
           if (!this.bindingErrorIP.phoneNumber && !this.bindingErrorIP.email) {
-            this.SHOW_LOADING();
+            this.showLoading();
             this.teacher.id = this.teacherIdCurrent;
+            // Kiểm tra đây là thêm hay sửa giáo viên
+            // 1. Thêm giáo viên
             if (this.titleForm === "Thêm") {
-              this.addNewTeacher(this.teacher);
-            } else {
+              // Kiểm tra trùng mã giáo viên
+              await this.addNewTeacher(this.teacher);
+              // 1. Bị trùng -> hiện ra thông báo lỗi
+              if (this.isTeacherCodeDuplicate) {
+                this.bindingErrorIP.teacherCode = true;
+                this.hideLoading();
+              }
+              // 2. Không trùng -> đóng form
+              else {
+                this.getTeachers(1);
+                this.$emit("closeWhenSuccess");
+                this.setEmptyTeacher();
+              }
+            }
+            // 2. Sửa thông tin giáo viên
+            else {
               this.editTeacherInfo(this.teacher);
               this.$emit("successEdit");
+              this.$emit("closeWhenSuccess");
+              this.setEmptyTeacher();
             }
 
-            this.$emit("closeWhenSuccess");
-            this.setEmptyTeacher();
+            this.setIsTeacherCodeDuplicate(false);
           }
         }
       }
@@ -416,42 +612,6 @@ export default {
           this.bindingErrorIP.email = false;
           break;
       }
-      // console.log(event);
-    },
-    ...mapActions(["addNewTeacher", "getTeachers", "editTeacherInfo"]),
-    ...mapMutations([
-      "SET_NEWTEACHER",
-      "setEmptyTeacher",
-      "SET_IDXPAGE",
-      "SET_TEACHER_CURRENT",
-      "setPhoneNumber",
-      "setEmail",
-      "SHOW_LOADING",
-      "HIDE_LOADING",
-      "setIsWorking",
-      "setIsProfessionalQualifications",
-    ]),
-    /*
-      Xử lý khi chọn option khác trong dropdown
-      Author: Tran Danh (16/7/2022)
-    */
-    handleChangeOption(nameOption) {
-      for (let subject of this.dbDropdown.listSubjectGroup) {
-        subject.selected = subject.name === nameOption;
-      }
-      this.findOptionSelected();
-    },
-    /**
-     * Tìm tên option được chọn trong 1 list các option
-     * Author: Tran Danh (16/7/2022)
-     */
-    findOptionSelected() {
-      for (let i = 0; i < this.dbDropdown.listSubjectGroup.length; i++) {
-        if (this.dbDropdown.listSubjectGroup[i].selected) {
-          this.dbDropdown.optionSelected =
-            this.dbDropdown.listSubjectGroup[i].name;
-        }
-      }
     },
     /**
      * Chọn avatar
@@ -466,7 +626,6 @@ export default {
     changeAvatar(event) {
       const file = event.target.files[0];
       this.srcAvatar = URL.createObjectURL(file);
-      console.log(this.srcAvatar);
     },
     /**
      * Tag Component
@@ -560,6 +719,23 @@ export default {
         }
       }
     },
+    ...mapActions(["addNewTeacher", "getTeachers", "editTeacherInfo"]),
+    ...mapMutations([
+      "setNewTeacher",
+      "setEmptyTeacher",
+      "setIdxPage",
+      "setTeacherCurrent",
+      "setPhoneNumber",
+      "setEmail",
+      "setDepartmentID",
+      "setListSubject",
+      "setListRoom",
+      "setIsTeacherCodeDuplicate",
+      "showLoading",
+      "hideLoading",
+      "setIsWorking",
+      "setIsProfessionalQualifications",
+    ]),
   },
   computed: mapGetters([
     "teacher",
@@ -571,14 +747,34 @@ export default {
     "isShowLoading",
     "idxPage",
     "teacherIdCurrent",
+    "isTeacherCodeDuplicate",
   ]),
   watch: {
     teachers() {
-      this.HIDE_LOADING();
+      this.hideLoading();
+    },
+    departmentModel() {
+      this.setDepartmentID(this.departmentModel);
+    },
+    listSubjectModel() {
+      this.setListSubject(
+        this.listSubjectModel?.map((s) => ({
+          SubjectID: s,
+          SubjectName: this.dbDropdown.listSubject[s - 1].SubjectName,
+        }))
+      );
+    },
+    listRoomModel() {
+      this.setListRoom(
+        this.listRoomModel?.map((s) => ({
+          EquimentRoomID: s,
+          EquimentRoomName: this.dbDropdown.listRoom[s - 1]?.EquimentRoomName,
+        }))
+      );
     },
   },
   mounted() {
-    this.findOptionSelected();
+    //this.findOptionSelected();
   },
 };
 </script>
@@ -694,7 +890,7 @@ export default {
 .inputs__main__one,
 .inputs__main__two {
   display: grid;
-  grid-template-columns: 6fr 6fr;
+  grid-template-columns: 6fr 50%;
   grid-column-gap: 24px;
   min-width: 100%;
   max-width: min-content;
@@ -732,5 +928,28 @@ export default {
 
 .checkbox-input {
   padding-right: 0;
+}
+
+/* Dropdown  */
+.dropdown {
+  display: grid;
+  grid-template-columns: var(--width-title-h-input) calc(
+      100% - var(--width-title-h-input)
+    );
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.dropdown .dropdown__container {
+  margin-left: 12px;
+  border-color: #ccc;
+}
+
+.dropdown__label {
+  color: #757575;
+}
+
+.mw-190 {
+  max-width: 190px !important;
 }
 </style>

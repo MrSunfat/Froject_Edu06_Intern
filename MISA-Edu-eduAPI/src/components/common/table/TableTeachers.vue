@@ -14,7 +14,7 @@
               class="checkbox-input__icon"
             />
             <img
-              :key="checkboxHover"
+              :src="checkboxHover"
               alt="checkbox-icon"
               class="checkbox-input__icon-hover"
             />
@@ -26,20 +26,17 @@
           </button>
         </th>
         <th
-          class="title center-text show-tooltip"
+          class="title-column center-text"
           v-for="info in this.infoTeacher"
           :key="info.title"
+          :title="info.tooltipContent"
         >
           {{ info.title }}
-          <tooltip-comp
-            v-if="info.tooltipContent"
-            :contentTooltip="info.tooltipContent"
-          />
         </th>
       </tr>
       <row-table-teachers
         v-for="teacher in teachers"
-        :key="teacher.code || ''"
+        :key="teacher.TeacherCode"
         :teacher="teacher"
         @toggelChecked="handleToggleChecked"
         @showPopupNotifyOnRow="handleOpenPopupNotify"
@@ -60,13 +57,12 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import RowTableTeachers from "@/components/common/row-table/RowTableTeachers.vue";
 import LoadingComp from "@/components/common/loading/LoadingComp.vue";
 import PopupNotify from "@/components/common/popup/PopupNotify.vue";
-import TooltipComp from "@/components/common/tooltip/TooltipComp.vue";
 import checkboxInactive from "@/assets/Icons/ic_Checkbox_Inactive.png";
 import checkboxHover from "@/assets/Icons/ic_Checkbox_Hover.png";
 import checkboxActive from "@/assets/Icons/ic_Checkbox_Active.png";
 export default {
   name: "TableTeachers",
-  components: { RowTableTeachers, LoadingComp, PopupNotify, TooltipComp },
+  components: { RowTableTeachers, LoadingComp, PopupNotify },
   data() {
     return {
       checkboxInactive,
@@ -85,9 +81,6 @@ export default {
         },
         {
           title: "Số điện thoại",
-        },
-        {
-          title: "Email",
         },
         {
           title: "Tổ chuyên môn",
@@ -123,27 +116,25 @@ export default {
       Author: Tran Danh (21/7/2022)
     */
     handleToggleCheckedAll() {
-      this.checkAll = !this.checkAll; 
+      this.checkAll = !this.checkAll;
       this.checkAll
         ? this.setListTeacherIdDelete(
             this.teachers.map((teacher) => teacher.TeacherID)
           )
         : this.setListTeacherIdDelete([]);
-      this.CHECKALL_TEACHERS(this.checkAll);
+      this.checkAllTeachers(this.checkAll);
     },
     /*
       Xử lý sự kiện check của từng hàng trong bảng
       Author: Tran Danh (21/7/2022)
     */
     handleToggleChecked(teacherId) {
-      this.CHECK_TEACHER(teacherId);
-      console.log(teacherId);
+      this.checkTeacher(teacherId);
       for (let teacher of this.teachers) {
         if (teacher.TeacherID === teacherId) {
           teacher.checked
             ? this.addListTeacherIdDelete(teacherId)
             : this.removeListTeacherIdDelete(teacherId);
-          // console.log(teacherId, teacher);
         }
       }
       this.checkAll = this.isCheckAllTeachers;
@@ -167,7 +158,7 @@ export default {
      * Author: Tran Danh (20/7/2022)
      */
     dumpData() {
-      this.SHOW_LOADING();
+      this.showLoading();
       this.getTeachers(this.idxPage);
     },
     /**
@@ -186,10 +177,10 @@ export default {
     },
     ...mapActions(["getTeachers"]),
     ...mapMutations([
-      "CHECK_TEACHER",
-      "CHECKALL_TEACHERS",
-      "SHOW_LOADING",
-      "HIDE_LOADING",
+      "checkTeacher",
+      "checkAllTeachers",
+      "showLoading",
+      "hideLoading",
       "setListTeacherIdDelete",
       "addListTeacherIdDelete",
       "removeListTeacherIdDelete",
@@ -210,7 +201,7 @@ export default {
      * Author: Tran Danh (20/7/2022)
      */
     teachers() {
-      this.HIDE_LOADING();
+      this.hideLoading();
     },
   },
   created() {

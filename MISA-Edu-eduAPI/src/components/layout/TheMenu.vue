@@ -69,7 +69,6 @@ export default {
   },
   created() {
     this.currentPath = "/" + location.href.split("/")[3];
-    // console.log("Link", location.href);
   },
 };
 </script>

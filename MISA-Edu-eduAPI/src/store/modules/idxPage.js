@@ -13,15 +13,15 @@ const idxPageModule = {
          * @param {*} idxPage
          * Author: Tran Danh (20/7/2022)
          */
-        SET_IDXPAGE(state, idxPage) {
+        setIdxPage(state, idxPage) {
             state.idxPage = idxPage;
         },
-        ICREMENT_IDXPAGE(state, totalPage) {
+        incrementIdxPage(state, totalPage) {
             if (state.idxPage < totalPage) {
                 state.idxPage += 1;
             }
         },
-        DECREMENT_IDXPAGE(state) {
+        decrementIdxPage(state) {
             if (state.idxPage > 2) {
                 state.idxPage -= 1;
             }

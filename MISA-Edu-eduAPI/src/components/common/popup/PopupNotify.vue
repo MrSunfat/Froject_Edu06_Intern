@@ -69,9 +69,8 @@ export default {
      * Author: Tran Danh (21/7/2022)
      */
     handleClosePopupNotify() {
-      // console.log(message);
       this.$emit("closePopupNotify");
-      this.SET_TEACHER_CURRENT({ id: "", name: "" });
+      this.setTeacherCurrent({ id: "", name: "" });
     },
     /**
      * Xác nhận xóa giáo viên qua id
@@ -87,17 +86,19 @@ export default {
         this.deleteListTeacher(this.listTeacherIdDelete);
         this.setListTeacherIdDelete([]);
       }
-      this.SHOW_LOADING();
+      this.showLoading();
       this.$emit("showToastSuccess");
       this.handleClosePopupNotify();
+      this.setIdxPage(1);
     },
     ...mapActions(["deleteTeacher", "deleteListTeacher"]),
     ...mapMutations([
-      "SHOW_LOADING",
-      "HIDE_LOADING",
-      "SET_TEACHER_CURRENT",
+      "showLoading",
+      "hideLoading",
+      "setTeacherCurrent",
       "setListTeacherIdDelete",
       "setEmptyTeacher",
+      "setIdxPage",
     ]),
     /**
      * Xác nhận validate form
@@ -113,7 +114,7 @@ export default {
      */
     handleClosePopupAndForm() {
       this.$emit("closePopupAndForm");
-      this.SET_TEACHER_CURRENT({ id: "", name: "" });
+      this.setTeacherCurrent({ id: "", name: "" });
       this.setEmptyTeacher();
     },
   },
@@ -137,14 +138,13 @@ export default {
     setTimeout(
       () => {
         this.isShowToast = false;
-        // console.log(this.linkToast);
       },
       this.toastInfo?.title ? 5000 : 3000
     );
   },
   watch: {
     teachers() {
-      this.HIDE_LOADING();
+      this.hideLoading();
     },
   },
 };

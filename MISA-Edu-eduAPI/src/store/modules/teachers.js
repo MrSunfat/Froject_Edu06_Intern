@@ -12,6 +12,7 @@ const teachersModule = {
             name: '',
         },
         listTeacherIdDelete: [],
+        isTeacherCodeDuplicate: false,
     },
     getters: {
         teachers: (state) => state.teachers,
@@ -29,6 +30,7 @@ const teachersModule = {
         teacherIdCurrent: (state) => state.teacherCurrent.id,
         teacherNameCurrent: (state) => state.teacherCurrent.name,
         listTeacherIdDelete: (state) => state.listTeacherIdDelete,
+        isTeacherCodeDuplicate: (state) => state.isTeacherCodeDuplicate,
     },
     actions: {
         /**
@@ -53,12 +55,9 @@ const teachersModule = {
                     };
                 });
 
-                console.log(response);
-
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
-                // console.log(response.data);
+                commit('setTeacher', response.data.Data);
+                commit('setTotalPage', response.data.TotalPage);
+                commit('setTotalTeachers', response.data.TotalRecord);
             } catch (error) {
                 console.log(error);
             }
@@ -73,21 +72,9 @@ const teachersModule = {
                     `${urlTeachers}/filter?pageSize=${constants.pageSize}&pageNumber=${searchText.pageNumber}&search=${searchText.content}`
                 );
 
-                console.log('Data: ', response.data);
-
-                // response.data.Data = response.data.Data.map((db) => {
-                //     return {
-                //         ...db,
-                //         training: true,
-                //         jobStatus: true,
-                //         checked: false,
-                //     };
-                // });
-
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
-                // console.log(response.data);
+                commit('setTeacher', response.data.Data);
+                commit('setTotalPage', response.data.TotalPage);
+                commit('setTotalTeachers', response.data.TotalRecord);
             } catch (error) {
                 console.log(error);
             }
@@ -101,8 +88,7 @@ const teachersModule = {
         async deleteTeacher({ commit }, teacherId) {
             try {
                 await axios.delete(`${urlTeachers}/${teacherId}`);
-                console.log('Xóa teacher: ', teacherId);
-                commit('DELETE_TEACHER', teacherId);
+                commit('deleteTeacher', teacherId);
 
                 const response = await axios.get(
                     `${urlTeachers}/filter?pageSize=${
@@ -119,9 +105,9 @@ const teachersModule = {
                     };
                 });
 
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
+                commit('setTeacher', response.data.Data);
+                commit('setTotalPage', response.data.TotalPage);
+                commit('setTotalTeachers', response.data.TotalRecord);
             } catch (error) {
                 console.log(error);
             }
@@ -136,8 +122,7 @@ const teachersModule = {
             try {
                 for (let teacherId of listTeacherId) {
                     await axios.delete(`${urlTeachers}/${teacherId}`);
-                    console.log('Xóa teacher: ', teacherId);
-                    commit('DELETE_TEACHER', teacherId);
+                    commit('deleteTeacher', teacherId);
                 }
 
                 const response = await axios.get(
@@ -155,9 +140,9 @@ const teachersModule = {
                     };
                 });
 
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
+                commit('setTeacher', response.data.Data);
+                commit('setTotalPage', response.data.TotalPage);
+                commit('setTotalTeachers', response.data.TotalRecord);
             } catch (error) {
                 console.log(error);
             }
@@ -169,36 +154,28 @@ const teachersModule = {
          * Author: Tran Danh (22/7/2022)
          */
         async addNewTeacher({ commit }, newTeacher) {
-            try {
-                // await axios.post(`${urlTeachers}${newTeacher}`);
-                await axios.post(urlTeachers, newTeacher, {
+            return axios
+                .post(urlTeachers, newTeacher, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                })
+                .then((response) => {
+                    // Nếu thêm giáo viên thành công
+                    if (response.data?.statusCode === 200) {
+                        commit('addTeacher', newTeacher);
+                        commit('setIsTeacherCodeDuplicate', false);
+                    }
+                    // Nếu thêm giáo viên thất bại do trùng mã giáo viên
+                    if (
+                        response.data?.statusCode === 400 && response.data?.devMsg.includes("trùng")
+                    ) {
+                        commit('setIsTeacherCodeDuplicate', true);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-                commit('ADD_TEACHER', newTeacher);
-
-                const response = await axios.get(
-                    `${urlTeachers}/filter?pageSize=${
-                        constants.pageSize
-                    }&pageNumber=${1}`
-                );
-
-                response.data.Data = response.data.Data.map((db) => {
-                    return {
-                        ...db,
-                        training: true,
-                        jobStatus: true,
-                        checked: false,
-                    };
-                });
-
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
-            } catch (error) {
-                console.log(error);
-            }
         },
         /**
          * Sửa thông tin của teacher
@@ -207,8 +184,6 @@ const teachersModule = {
          */
         async editTeacherInfo({ commit }, teacherInfo) {
             try {
-                // await axios.post(`${urlTeachers}${newTeacher}`);
-                console.log(teacherInfo);
                 await axios.put(
                     `${urlTeachers}/${teacherInfo.id}`,
                     teacherInfo,
@@ -235,9 +210,9 @@ const teachersModule = {
                     };
                 });
 
-                commit('SET_TEACHER', response.data.Data);
-                commit('SET_TOTALPAGE', response.data.TotalPage);
-                commit('SET_TOTALTEACHERS', response.data.TotalRecord);
+                commit('setTeacher', response.data.Data);
+                commit('setTotalPage', response.data.TotalPage);
+                commit('setTotalTeachers', response.data.TotalRecord);
             } catch (error) {
                 console.log(error);
             }
@@ -250,7 +225,7 @@ const teachersModule = {
          * @param {*} teachers
          * Author: Tran Danh (20/7/2022)
          */
-        SET_TEACHER(state, teachers) {
+        setTeacher(state, teachers) {
             state.teachers = teachers;
         },
         /**
@@ -259,7 +234,7 @@ const teachersModule = {
          * @param {*} newTeacher
          * Author: Tran Danh (20/7/2022)
          */
-        ADD_TEACHER(state, newTeacher) {
+        addTeacher(state, newTeacher) {
             state.teachers.unshift(newTeacher);
         },
         /**
@@ -268,7 +243,7 @@ const teachersModule = {
          * @param {*} teacherId
          * Author: Tran Danh (20/7/2022)
          */
-        DELETE_TEACHER(state, teacherId) {
+        deleteTeacher(state, teacherId) {
             state.teachers = state.teachers.filter(
                 (teacher) => teacher.EmployeeId !== teacherId
             );
@@ -295,7 +270,7 @@ const teachersModule = {
          * @param {*} checkAll
          * Author: Tran Danh (20/7/2022)
          */
-        CHECKALL_TEACHERS(state, checkAll) {
+        checkAllTeachers(state, checkAll) {
             state.teachers = state.teachers.map((db) => {
                 return {
                     ...db,
@@ -309,7 +284,7 @@ const teachersModule = {
          * @param {*} teacherId
          * Author: Tran Danh (21/7/2022)
          */
-        CHECK_TEACHER(state, teacherId) {
+        checkTeacher(state, teacherId) {
             state.teachers = state.teachers.map((teacher) => {
                 if (teacher.TeacherID === teacherId) {
                     return {
@@ -328,7 +303,7 @@ const teachersModule = {
          * @param {*} totalTeachers
          * Author: Tran Danh (20/7/2022)
          */
-        SET_TOTALTEACHERS(state, totalTeachers) {
+        setTotalTeachers(state, totalTeachers) {
             state.totalTeachers = totalTeachers;
         },
         /**
@@ -337,7 +312,7 @@ const teachersModule = {
          * @param {*} totalPage
          * Author: Tran Danh (20/7/2022)
          */
-        SET_TOTALPAGE(state, totalPage) {
+        setTotalPage(state, totalPage) {
             state.totalPage = totalPage;
         },
         /**
@@ -346,7 +321,7 @@ const teachersModule = {
          * @param {*} teacherIdCurrent
          * Author: Tran Danh (21/7/2022)
          */
-        SET_TEACHER_CURRENT(state, teacherCurrent) {
+        setTeacherCurrent(state, teacherCurrent) {
             state.teacherCurrent = { ...teacherCurrent };
         },
         /**
@@ -371,6 +346,13 @@ const teachersModule = {
          */
         setListTeacherIdDelete(state, listTeacherId) {
             state.listTeacherIdDelete = [...listTeacherId];
+        },
+        /**
+         * Xét giá trị cho isTeacherCodeDuplicate
+         * Tran Danh (17/8/2022)
+         */
+        setIsTeacherCodeDuplicate(state, isTeacherCodeDuplicate) {
+            state.isTeacherCodeDuplicate = isTeacherCodeDuplicate;
         },
     },
 };

@@ -64,3 +64,14 @@ C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Ed
 C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\obj\Debug\net6.0\MISA.Edu06.Api.pdb
 C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\obj\Debug\net6.0\MISA.Edu06.Api.genruntimeconfig.cache
 C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\obj\Debug\net6.0\ref\MISA.Edu06.Api.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\obj\Debug\net6.0\MISA.Edu06.Api.Resources.StatusMesg.resources
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\obj\Debug\net6.0\MISA.Edu06.Api.csproj.GenerateResource.cache
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\EPPlus.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\EPPlus.Interfaces.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\EPPlus.System.Drawing.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\hue\Desktop\Project_Edu06_Intern\Froject_Edu06_Intern\MISA_Demo\MISA.Edu06.Api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll

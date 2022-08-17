@@ -1,6 +1,6 @@
 <template>
     <div class="loan-page">
-        LoanPage
+        Tính năng đang phát triển
     </div>
 </template>
 

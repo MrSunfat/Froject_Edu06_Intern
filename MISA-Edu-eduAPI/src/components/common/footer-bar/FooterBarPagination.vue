@@ -62,10 +62,9 @@ export default {
      * Xử lý khi nhập vào ô -> đi đến trang mong muốn
      */
     handleFocusEvent() {
-      // console.log(this.indexPage);
       this.indexPage = parseInt(this.indexPage);
       this.dumpDataToTable(this.indexPage);
-      this.SET_IDXPAGE(this.indexPage);
+      this.setIdxPage(this.indexPage);
     },
     /**
      * Xử lý khi nhấn trang trước đó
@@ -74,18 +73,20 @@ export default {
     handlePrevPage() {
       if (this.indexPage > 1) {
         this.indexPage = parseInt(this.indexPage) - 1;
-        this.SET_IDXPAGE(this.indexPage);
+        this.setIdxPage(this.indexPage);
+        this.dumpDataToTable(this.indexPage);
       }
-      this.dumpDataToTable(this.indexPage);
     },
     /**
      * Xử lý khi nhấn vào nút quay về trang đầu
      * Author: Tran Danh (21/7/2022)
      */
     handleFirstPage() {
-      this.indexPage = 1;
-      this.SET_IDXPAGE(this.indexPage);
-      this.dumpDataToTable(this.indexPage);
+      if (this.indexPage > 1) {
+        this.indexPage = 1;
+        this.setIdxPage(this.indexPage);
+        this.dumpDataToTable(this.indexPage);
+      }
     },
     /**
      * Xử lý khi nhấn trang tiếp theo
@@ -94,18 +95,20 @@ export default {
     handleNextPage() {
       if (this.indexPage < this.totalPage) {
         this.indexPage = parseInt(this.indexPage) + 1;
-        this.SET_IDXPAGE(this.indexPage);
+        this.setIdxPage(this.indexPage);
+        this.dumpDataToTable(this.indexPage);
       }
-      this.dumpDataToTable(this.indexPage);
     },
     /**
      * Xử lý khi nhấn vào nút đến trang cuối
      * Author: Tran Danh (21/7/2022)
      */
     handleLastPage() {
-      this.indexPage = this.totalPage;
-      this.SET_IDXPAGE(this.indexPage);
-      this.dumpDataToTable(this.indexPage);
+      if (this.indexPage < this.totalPage) {
+        this.indexPage = this.totalPage;
+        this.setIdxPage(this.indexPage);
+        this.dumpDataToTable(this.indexPage);
+      }
     },
     /**
      * Load data bằng cách truyền chỉ số page
@@ -113,16 +116,14 @@ export default {
      */
     dumpDataToTable(indexPage) {
       const me = this;
-      // console.log("Vi tri: ", indexPage);
-      // console.log(this.indexPage, this.totalPage);
-      me.SHOW_LOADING();
+      me.showLoading();
       if (indexPage >= 1 && indexPage <= this.totalPage) {
-        this.SET_IDXPAGE(indexPage);
+        this.setIdxPage(indexPage);
       } else if (indexPage < 1) {
-        this.SET_IDXPAGE(1);
+        this.setIdxPage(1);
         this.indexPage = 1;
       } else if (indexPage > this.totalPage) {
-        this.SET_IDXPAGE(this.totalPage);
+        this.setIdxPage(this.totalPage);
         this.indexPage = this.totalPage;
       }
 
@@ -131,17 +132,10 @@ export default {
       if (!this.searchText.content) {
         this.getTeachers(this.idxPage);
       } else {
-        console.log(this.indexPage);
         this.filterTeacher(this.searchText);
       }
     },
-    ...mapMutations([
-      "SET_IDXPAGE",
-      "ICREMENT_IDXPAGE",
-      "DECREMENT_IDXPAGE",
-      "SHOW_LOADING",
-      "HIDE_LOADING",
-    ]),
+    ...mapMutations(["setIdxPage", "showLoading", "hideLoading"]),
     ...mapActions(["getTeachers", "filterTeacher"]),
   },
   computed: {
@@ -152,9 +146,6 @@ export default {
       "totalTeachers",
       "totalPage",
     ]),
-    // indexPage (){
-    //   return this.idxPage;
-    // }
   },
 
   created() {
@@ -162,7 +153,7 @@ export default {
   },
   watch: {
     teachers() {
-      this.HIDE_LOADING();
+      this.hideLoading();
     },
     idxPage() {
       this.indexPage = this.idxPage;

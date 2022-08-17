@@ -55,8 +55,8 @@ namespace MISA.Edu06.Api.Controllers
 
                 var response = new
                 {
-                    devMsg = "Success Post",
-                    userMsg = "Success Post"
+                    devMsg = Resources.StatusMesg.S_Post,
+                    userMsg = Resources.StatusMesg.S_Post
                 };
 
                 return Ok(response);
@@ -93,8 +93,8 @@ namespace MISA.Edu06.Api.Controllers
 
                 var response = new
                 {
-                    devMsg = "Success Post",
-                    userMsg = "Success Post"
+                    devMsg = Resources.StatusMesg.S_Post,
+                    userMsg = Resources.StatusMesg.S_Post
                 };
 
                 return Ok(response);

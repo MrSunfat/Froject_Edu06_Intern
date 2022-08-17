@@ -18,7 +18,7 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// </summary>
         /// <returns>Thông tin của tất cả giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
-        public IEnumerable<Teacher> GetAll()
+        public IEnumerable<TeacherDTO> GetAll()
         {
             // Procedure lấy ra các thông của giáo viên
             var sqlCommand = "Proc_GetAllTeacher";
@@ -47,7 +47,52 @@ namespace MISA.Edu06.Infrastructure.Repository
 
             using (_mySqlConnection = new MySqlConnection(connectString))
             {
-                var teachers = FormatTeacher(_mySqlConnection, sqlCommand, parameters);
+                //var teachers = FormatTeacher(_mySqlConnection, sqlCommand, parameters);
+
+                // Tạo teacherDictionary để lưu các teacher đã tồn tại
+                var teacherDictionary = new Dictionary<Guid, Teacher>();
+
+                // Truy vấn database
+                var teachers = _mySqlConnection.Query<Teacher, Subject, EquimentRoom, Department, Teacher>(
+                    sqlCommand,
+                    (teacher, subject, equimentRoom, department) =>
+                    {
+                        Teacher teacherEntry;
+
+                        // Kiểm tra teacher này đã tồn tại chưa ?
+                        // Nếu chưa tồn tại thì thêm vào teacherDictionary
+                        if (!teacherDictionary.TryGetValue(teacher.TeacherID, out teacherEntry))
+                        {
+                            teacherEntry = teacher;
+                            teacherEntry.ListSubject = new List<Subject>();
+                            teacherEntry.ListRoom = new List<EquimentRoom>();
+                            teacherDictionary.Add(teacherEntry.TeacherID, teacherEntry);
+                        }
+
+                        // kiểm tra môn học khác null thì thêm vào ListSubject và kiểm tra subject đã có chưa
+                        if (subject != null && !teacherEntry.ListSubject.Any(s => s.SubjectID == subject.SubjectID))
+                        {
+                            teacherEntry.ListSubject.Add(subject);
+                        }
+
+                        // kiểm tra phòng thiết bị khác null thì thêm vào ListRooms và kiểm tra room đã có chưa
+                        if (equimentRoom != null && !teacherEntry.ListRoom.Any(r => r.EquimentRoomID == equimentRoom.EquimentRoomID))
+                        {
+                            teacherEntry.ListRoom.Add(equimentRoom);
+                        }
+                        // kiểm tra tổ hợp môn khác null -> set giá trị cho thông tin tổ hợp vào teacher
+                        if (department != null)
+                        {
+                            teacherEntry.DepartmentID = department.DepartmentID;
+                            teacherEntry.DepartmentName = department.DepartmentName;
+                        }
+                        return teacherEntry;
+                    },
+                    splitOn: "TeacherID, SubjectID, EquimentRoomID, DepartmentID",
+                    param: parameters,
+                    commandType: System.Data.CommandType.StoredProcedure)
+                .Distinct()
+                .ToList();
 
                 return teachers[0];
             }
@@ -298,7 +343,6 @@ namespace MISA.Edu06.Infrastructure.Repository
             }
         }
 
-        
         /// <summary>
         /// Format trường ListSubject, ListRoom, DepartmentID, DepartmentName của teacher
         /// </summary>
@@ -307,52 +351,13 @@ namespace MISA.Edu06.Infrastructure.Repository
         /// <param name="values">param truyền vào câu truy vấn</param>
         /// <returns>Danh sách các giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
-        public static List<Teacher> FormatTeacher(MySqlConnection connection, string sqlCommand, object values)
+        public static List<TeacherDTO> FormatTeacher(MySqlConnection connection, string sqlCommand, object values)
         {
-            // Tạo teacherDictionary để lưu các teacher đã tồn tại
-            var teacherDictionary = new Dictionary<Guid, Teacher>();
-
-            // Truy vấn database
-            var teachers = connection.Query<Teacher, Subject, EquimentRoom, Department, Teacher>(
-                sqlCommand,
-                (teacher, subject, equimentRoom, department) =>
-                {
-                    Teacher teacherEntry;
-
-                    // Kiểm tra teacher này đã tồn tại chưa ?
-                    // Nếu chưa tồn tại thì thêm vào teacherDictionary
-                    if (!teacherDictionary.TryGetValue(teacher.TeacherID, out teacherEntry))
-                    {
-                        teacherEntry = teacher;
-                        teacherEntry.ListSubject = new List<Subject>();
-                        teacherEntry.ListRoom = new List<EquimentRoom>();
-                        teacherDictionary.Add(teacherEntry.TeacherID, teacherEntry);
-                    }
-
-                    // kiểm tra môn học khác null thì thêm vào ListSubject và kiểm tra subject đã có chưa
-                    if (subject != null && !teacherEntry.ListSubject.Any(s => s.SubjectID == subject.SubjectID))
-                    {
-                        teacherEntry.ListSubject.Add(subject);
-                    }
-
-                    // kiểm tra phòng thiết bị khác null thì thêm vào ListRooms và kiểm tra room đã có chưa
-                    if (equimentRoom != null && !teacherEntry.ListRoom.Any(r => r.EquimentRoomID == equimentRoom.EquimentRoomID))
-                    {
-                        teacherEntry.ListRoom.Add(equimentRoom);
-                    }
-                    // kiểm tra tổ hợp môn khác null -> set giá trị cho thông tin tổ hợp vào teacher
-                    if (department != null)
-                    {
-                        teacherEntry.DepartmentID = department.DepartmentID;
-                        teacherEntry.DepartmentName = department.DepartmentName;
-                    }
-                    return teacherEntry;
-                },
-                splitOn: "TeacherID, SubjectID, EquimentRoomID, DepartmentID",
-                param: values,
+            
+            var teachers = connection.Query<TeacherDTO>(sqlCommand, 
+                param: values, 
                 commandType: System.Data.CommandType.StoredProcedure)
-            .Distinct()
-            .ToList();
+                .ToList();
 
             return teachers;
         }
@@ -424,8 +429,39 @@ namespace MISA.Edu06.Infrastructure.Repository
             {
                 var sqlCommand = "SELECT MAX(t.TeacherCode) FROM Teacher t;";
                 var res = _mySqlConnection.QueryFirstOrDefault<string>(sql: sqlCommand);
-                string[] words = res.Split("-");
-                res = words[0] + "-" + (Convert.ToInt32(words[1]) + 1);
+                // Mã số cán bộ cuối
+                int numberTeacherCode = Convert.ToInt32(res.Substring(4)) + 1;
+
+                // format lại mã số cán bộ cuối nếu không đủ 4 số
+                int numberTeacherCodeClone = numberTeacherCode;
+                // Đếm số lượng chữ số trong mã số đó
+                int count = 0;
+                while (numberTeacherCodeClone > 0)
+                {
+                    numberTeacherCodeClone /= 10;
+                    count++;
+                }
+
+                count -= 4;
+
+                // Số 0 thêm vào phía trước để format
+                string teacherCodeFormat = "";
+                // Số lượng chữ còn thiếu để đủ 4 số
+                if (count < 0)
+                {
+                    count = Math.Abs(count);
+                    while (count > 0)
+                    {
+                        teacherCodeFormat += "0";
+                        count--;
+                    }
+                }
+
+                res = res.Substring(0,4) + teacherCodeFormat + numberTeacherCode;
+                if (res == null)
+                {
+                    return "SHCB0001";
+                }
                 return res;
             }
         }

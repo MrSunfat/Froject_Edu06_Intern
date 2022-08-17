@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
 import constanst from "@/scripts/constants/constants";
 import urlTeachers from "@/scripts/constants/urlTeachers";
@@ -30,11 +30,13 @@ export default {
     binding: Boolean,
     tabindex: Number,
     stringRef: String,
+    duplicate: String,
   },
   data() {
     return {
       dataIp: "",
       contentError: "",
+      newCode: "",
     };
   },
   mounted() {
@@ -45,6 +47,11 @@ export default {
     if (this.tabindex === 1) {
       this.focusInput();
     }
+
+    // Nếu thẻ label là Số hiệu cán bộ
+    if (this.label === constanst.propertiesTeacher.code) {
+      this.generateNewTeacherCode();
+    }
   },
   methods: {
     /**
@@ -52,7 +59,6 @@ export default {
      * Tran Danh (27/7/2022)
      */
     focusInput() {
-      // console.log("Hello");
       this.$refs.firstFocus.focus();
     },
     /**
@@ -63,11 +69,16 @@ export default {
       switch (this.label) {
         // 1. Xử lý ô nhập Số hiệu cán bộ
         case constanst.propertiesTeacher.code:
+          // this.dataIp = this.newCode;
           this.dataIp = this.dataIp.toUpperCase();
           // Loại bỏ các khoảng trắng thừa trước khi xét vào teacherCOde
           this.setTeacherCode(this.dataIp.trim());
           // Xét giá trị cho nội dụng báo lỗi
           this.contentError = `${this.label} không được bỏ trống !`;
+          // Kiểm tra mã giáo viên có bị trùng không ?
+          if (this.duplicate) {
+            this.contentError = this.duplicate;
+          }
           // Khi đã nhập thông tin vào ô thì ẩn thông báo lỗi đi
           if (this.dataIp) {
             this.$emit("hideError", constanst.propertiesTeacher.code);
@@ -83,7 +94,7 @@ export default {
             }
           });
           this.dataIp = words.join(" ");
-          this.SET_FULLNAME(this.dataIp);
+          this.setFullName(this.dataIp);
           // Xét giá trị cho nội dụng báo lỗi
           this.contentError = `${this.label} không được bỏ trống !`;
           // Khi đã nhập thông tin vào ô thì ẩn thông báo lỗi đi
@@ -121,13 +132,11 @@ export default {
       if (data) {
         // 1. Nếu dữ liệu đúng format -> xét vào data của vuex
         if (regexpFormat.test(data)) {
-          console.log("Đúng email");
           setData(data);
           this.$emit("hideError", label);
         }
         // 2. Nếu dữ liệu sai format -> hiện lỗi
         else if (!regexpFormat.test(data)) {
-          console.log("Sai email");
           // Xét giá trị cho nội dụng báo lỗi
           this.contentError = `${label} không đúng định dạng !`;
           this.$emit("showError", label);
@@ -139,21 +148,24 @@ export default {
     },
     /**
      * Khi tab hoặc enter ô dữ liệu thì format lại dữ liệu đã nhập
+     * Tran Danh (17/8/2022)
      */
     handleChangeData() {
-      console.log("Thay đổi");
       this.dataIp = this.dataIp.trim();
     },
     /**
      * Tự sinh ra mã giáo viên mới
+     * Tran Danh (17/8/2022)
      */
     async generateNewTeacherCode() {
-      let newTeacherCode = await axios.get(urlTeachers);
-      console.log(newTeacherCode);
+      let res = await axios.get(`${urlTeachers}/NewTeacherCode`);
+      this.dataIp = res?.data;
+      this.setTeacherCode(this.dataIp);
+      this.$emit("hideError", constanst.propertiesTeacher.code);
     },
     ...mapMutations([
       "setTeacherCode",
-      "SET_FULLNAME",
+      "setFullName",
       "setPhoneNumber",
       "setEmail",
     ]),
@@ -165,11 +177,13 @@ export default {
       "PhoneNumber",
       "Email",
       "teacher",
+      "isTeacherCodeDuplicate",
     ]),
     errorNotify() {
       return `${this.label} không được bỏ trống !`;
     },
   },
+  created() {},
   watch: {
     // Xét giá trị cho các ô khi muốn sửa giáo viên
     teacher() {
@@ -204,8 +218,9 @@ export default {
   height: var(--height-input);
 }
 
-.h-label-input.error .notify {
-  --height-notify: 22px;
+.h-label-input.error:hover .notify {
+  --height-notify: 32px;
+  padding-left: 8px;
   position: absolute;
   content: "";
   top: calc(-5px - var(--height-notify));
@@ -220,9 +235,10 @@ export default {
   /* align-content: center; */
   justify-content: center;
   display: flex;
+  transition: all 0.3s ease-in;
 }
 
-.h-label-input.error .arrow-down {
+.h-label-input.error:hover .arrow-down {
   position: absolute;
   top: -5px;
   right: 50px;

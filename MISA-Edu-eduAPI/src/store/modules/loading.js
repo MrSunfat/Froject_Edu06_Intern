@@ -13,13 +13,13 @@ const loadingModule = {
          * 
          * @param {*} state 
          */
-        TOGGLE_SHOW_LOADING(state) {
+        toggleShowLOADING(state) {
             state.loading.isShowLoading = !state.loading.isShowLoading;
         },
-        SHOW_LOADING(state) {
+        showLoading(state) {
             state.loading.isShowLoading = true;
         },
-        HIDE_LOADING(state) {
+        hideLoading(state) {
             state.loading.isShowLoading = false;
         }
     },

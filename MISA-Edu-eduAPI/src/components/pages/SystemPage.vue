@@ -10,7 +10,7 @@
             v-model="search.content"
             @change="handleFilter"
           />
-          <div class="input-icon__icon" @click="handleFilter">
+          <div class="input-icon__icon" @click="handleFilter" title="Tìm kiếm">
             <img :src="urlSeachIcon" alt="" class="input-icon__icon-img" />
           </div>
         </div>
@@ -20,13 +20,12 @@
           nameBtn="Thêm"
           :type="typeBtnEnum.PRIMARY"
           :handleClick="handleOpenFormAddTeacher"
-          class="show-tooltip"
         >
-          <tooltip-comp :contentTooltip="this.listTooltipContent.add" />
         </base-btn>
         <base-btn
           class="export-icon"
           nameBtn="Xuất khẩu"
+          :handleClick="handleExportExcelTeacher"
           :type="typeBtnEnum.SECONDARY"
         />
         <base-btn
@@ -88,11 +87,13 @@ import TableTeachers from "@/components/common/table/TableTeachers.vue";
 import FooterBarPagination from "@/components/common/footer-bar/FooterBarPagination.vue";
 import PopupNotify from "@/components/common/popup/PopupNotify.vue";
 import FormAddTeacher from "@/components/common/form/FormAddTeacher.vue";
-import TooltipComp from "@/components/common/tooltip/TooltipComp.vue";
 // icon
 import moreIcon from "../../assets/Icons/ic_More.png";
 import deleteIcon from "../../assets/Icons/ic_delete.png";
 import searchIcon from "../../assets/Icons/Ic_seerch.png";
+import axios from "axios";
+import urlTeachers from "@/scripts/constants/urlTeachers";
+import constants from "@/scripts/constants/constants";
 export default {
   name: "SystemPage",
   data() {
@@ -138,11 +139,10 @@ export default {
     FooterBarPagination,
     PopupNotify,
     FormAddTeacher,
-    TooltipComp,
     BaseToast,
   },
   methods: {
-    ...mapMutations(["SET_IDXPAGE"]),
+    ...mapMutations(["setIdxPage"]),
     /**
      * Đóng popup thông báo
      * Author: Tran Danh (16/7/2022)
@@ -163,11 +163,10 @@ export default {
       this.closePopupNotify = false;
     },
     /**
-     * Đóng form thêm giáo viên và
+     * Đóng form thêm giáo viên và kiểm tra sự thay đổi
      * Author: Tran Danh (16/7/2022)
      */
     handleCloseFormAddTeacher() {
-      console.log(this.teacher);
       if (
         this.teacher.Email &&
         this.teacher.EmployeeCode &&
@@ -224,7 +223,6 @@ export default {
      * Tran Danh (26/7/2022)
      */
     handleDeleteListTeacher() {
-      // console.log(this.listTeacherIdDelete);
       // 1. Khi có chọn các teacherId
       if (this.listTeacherIdDelete.length > 0) {
         this.closePopupNotify = !this.closePopupNotify;
@@ -279,16 +277,15 @@ export default {
      * Tran Danh (26/7/2022)
      */
     handleFilter() {
-      console.log(this.search);
       if (!this.search.content) {
         this.getTeachers(1);
       } else {
         this.search.pageNumber = 1;
-        this.SET_IDXPAGE(1);
+        this.setIdxPage(1);
         this.filterTeacher(this.search);
       }
     },
-    
+
     /**
      * Đóng cả popup và form
      * Tran Danh (29/7/2022)
@@ -318,6 +315,25 @@ export default {
      */
     handleSetIdxWhenChangeSearchText(idx) {
       this.search.pageNumber = idx;
+    },
+    /**
+     * Xuất thông tin giáo viên ra excel
+     * Tran Danh (15/8/2022)
+     */
+    handleExportExcelTeacher() {
+      axios({
+        url: `${urlTeachers}/Export`,
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", constants.titleFile);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
     },
     ...mapActions(["deleteListTeacher", "getTeachers", "filterTeacher"]),
   },

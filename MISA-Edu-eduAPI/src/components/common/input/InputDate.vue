@@ -2,12 +2,23 @@
   <div class="input-date d-flex">
     <label for="day-off" class="subtitle-two d-flex">Ngày nghỉ việc</label>
     <div class="input-date__main d-flex">
-      <input id="day-off" class="main__box" type="date" :tabindex="tabindex" />
+      <input
+        id="day-off"
+        class="main__box"
+        type="date"
+        placeholder="DD/MM/YYYY"
+        v-model="time1"
+        min="1997-01-01"
+        max="2030-12-31"
+        :tabindex="tabindex"
+        @change="handleChangeDate"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
 export default {
   name: "InputDate",
   props: {
@@ -16,9 +27,36 @@ export default {
       default: 0,
     },
   },
+  components: {},
   data() {
-    return {};
+    return {
+      time1: null,
+    };
   },
+  methods: {
+    ...mapMutations(["setDayOff"]),
+    /**
+     * Xét giá trị dayoff
+     * Author: Tran Danh (16/8/2022)
+     */
+    handleChangeDate() {
+      this.setDayOff(new Date(this.time1));
+    }
+  },
+  computed: {
+    ...mapGetters(["IsWorking"])
+  },
+  watch: {
+    /**
+     * Xét ngày nghỉ null nếu còn đang làm việc
+     * Author: Tran Danh (16/8/2022)
+     */
+    IsWorking() {
+      if (this.IsWorking) {
+        this.setDayOff(null);
+      }
+    }
+  }
 };
 </script>
 
@@ -34,6 +72,7 @@ export default {
 
 .input-date__main {
   margin-left: 12px;
+  width: 180px;
 }
 
 .input-date__main .main__box {
@@ -43,6 +82,7 @@ export default {
   padding: 0;
   padding-left: 12px;
   cursor: pointer;
+  width: 100%;
 }
 
 .input-date__main .main__box:focus {

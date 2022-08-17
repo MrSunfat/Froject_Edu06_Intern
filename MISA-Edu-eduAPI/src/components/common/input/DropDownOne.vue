@@ -124,7 +124,6 @@ export default {
         "changeOption",
         this.dbDropdown.listSubjectGroup[this.pointerOption]?.name
       );
-      console.log("Dropdown");
     },
     /**
      * Ẩn Dropdown options bằng phím Esc

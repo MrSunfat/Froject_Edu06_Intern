@@ -25,6 +25,11 @@ namespace MISA.Edu06.Api.Controllers
         #endregion
 
         #region Functions
+        /// <summary>
+        /// Lấy tất cả tổ hợp môn
+        /// </summary>
+        /// <returns>Tất cả tổ hợp môn</returns>
+        /// CreatedBy: TNDanh (15/8/2022)
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -32,6 +37,12 @@ namespace MISA.Edu06.Api.Controllers
             return Ok(res);
         }
 
+        /// <summary>
+        /// Thêm tổ hợp môn mới
+        /// </summary>
+        /// <param name="department">Thông tin của tổ hợp môn mới</param>
+        /// <returns>Số lượng tổ hợp môn thêm</returns>
+        /// CreatedBy: TNDanh (15/8/2022)
         [HttpPost()]
         public IActionResult AddNewDepartment(Department department)
         {
@@ -42,7 +53,7 @@ namespace MISA.Edu06.Api.Controllers
                 // Thêm một giáo viên mới
                 var res = _departmentRepository.AddNewDepartment(department);
 
-                return Ok("Success Create");
+                return Ok(Resources.StatusMesg.S_Post);
 
             }
             catch (EduValidateException ex)
@@ -57,6 +68,13 @@ namespace MISA.Edu06.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Sửa thông tin tổ hợp môn
+        /// </summary>
+        /// <param name="department">Thông tin mới của tổ hợp môn</param>
+        /// <param name="departmentID">Mã ID của tổ hợp môn</param>
+        /// <returns>Số lượng tổ hợp môn sửa đổi</returns>
+        /// CreatedBy: TNDanh (15/8/2022)
         [HttpPut("{departmentID}")]
         public IActionResult EditDepartment(Department department, int departmentID)
         {
@@ -67,7 +85,7 @@ namespace MISA.Edu06.Api.Controllers
                 // Thêm một giáo viên mới
                 var res = _departmentRepository.UpdateDepartmentByID(department, departmentID);
 
-                return Ok("Success Edit");
+                return Ok(Resources.StatusMesg.S_Edit);
 
             }
             catch (EduValidateException ex)
@@ -82,6 +100,11 @@ namespace MISA.Edu06.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Xóa tổ hợp môn
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         [HttpDelete("{departmentID}")]
         public IActionResult DeleteDepartment(int departmentId)
         {

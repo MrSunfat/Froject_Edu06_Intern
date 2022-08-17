@@ -16,7 +16,7 @@ namespace MISA.Edu06.Core.Interfaces.Infrastructure
         /// </summary>
         /// <returns>Thông tin tất cả giáo viên</returns>
         /// CreatedBy: TNDanh (5/8/2022)
-        public IEnumerable<Teacher> GetAll();
+        public IEnumerable<TeacherDTO> GetAll();
         /// <summary>
         /// Lấy thông tin giáo viên qua id
         /// </summary>

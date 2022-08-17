@@ -1,0 +1,27 @@
+.dx-state-focused {
+    border-color: var(--active-border-input) !important;
+}
+
+.dx-state-active {
+    border-color: var(--active-border-input) !important;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-list-item-selected {
+    background-color: var(--row-focus-color-on-grid-color) !important;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-hover {
+    background-color: var(--hover-color) !important;
+}
+
+  /* .dx-texteditor.dx-state-hover {
+    border-color: var(--active-border-input) !important;
+  }
+  
+  .dx-texteditor.dx-state-focused.dx-editer-outlined {
+    border-color: var(--active-border-input) !important;
+  } */
+  
+.dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon {
+    background-color: transparent !important;
+}

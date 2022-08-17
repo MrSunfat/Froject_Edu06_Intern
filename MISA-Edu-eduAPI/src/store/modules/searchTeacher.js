@@ -9,6 +9,9 @@ const searchTeacherModule = {
 
     },
     mutations: {
+        /**
+         * Xết 
+         */
         setSearchText(state, value) {
             state.searchText = value;
         }
