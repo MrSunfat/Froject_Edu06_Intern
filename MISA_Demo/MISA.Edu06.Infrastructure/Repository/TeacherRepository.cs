@@ -502,14 +502,12 @@ namespace MISA.Edu06.Infrastructure.Repository
             var sqlFilterAndPaging = "Proc_GetPaging";
             using (_mySqlConnection = new MySqlConnection(connectString))
             {
-                DynamicParameters parameters = new DynamicParameters();
+                var parameters = new DynamicParameters();
                 parameters.Add("@pageNumber", pageNumber);
                 parameters.Add("@pageSize", pageSize);
                 parameters.Add("@search", search);
                 parameters.Add("@totalRecord", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
                 parameters.Add("@totalPage", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-
-                //Console.WriteLine(whereString);
 
                 var res = FormatTeacher(_mySqlConnection, sqlFilterAndPaging, parameters);
 

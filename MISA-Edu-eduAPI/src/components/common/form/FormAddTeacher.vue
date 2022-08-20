@@ -44,10 +44,12 @@
               :binding="true"
               :tabindex="1"
               stringRef="firstFocus"
+              ref="first-focus"
               :class="{
                 error: this.bindingErrorIP.teacherCode,
               }"
               :duplicate="constanst.warningContent.codeDuplicate"
+              :titleForm="this.titleForm"
               @hideError="handleHideError"
             />
             <h-label-input
@@ -127,7 +129,7 @@
           <div class="inputs__main__two"></div>
           <div class="dropdown d-flex">
             <label class="subtitle-two d-flex dropdown__label">
-              QL theo môn
+              QL kho, phòng
             </label>
             <DxTagBox
               class="ip-default dropdown__container d-flex"
@@ -513,7 +515,7 @@ export default {
     */
     handleCloseFormAddTeacher() {
       this.$emit("closeFormAddTeacher");
-      this.teacher.DepartmentID = "";
+      this.teacher.DepartmentID = 1;
     },
     /*
       Xử lý khi lưu dữ liệu
@@ -526,10 +528,10 @@ export default {
         // 1. Kiểm tra FullName
         if (!this.FullName) {
           this.bindingErrorIP.fullName = true;
-          this.$refs.firstFocus?.focus();
         } else {
           this.bindingErrorIP.fullName = false;
         }
+        this.$refs["first-focus"]?.focusInput();
       }
       // II. EmployeeCode khác trống
       else {
@@ -537,6 +539,7 @@ export default {
         // 1. Kiểm tra FullName
         if (!this.FullName) {
           this.bindingErrorIP.fullName = true;
+          this.$refs["first-focus"]?.focusInput();
         } else {
           this.bindingErrorIP.fullName = false;
           // 1a. kiểm tra các ô khác (nếu có dữ liệu) đúng format chưa
@@ -567,7 +570,7 @@ export default {
               this.$emit("closeWhenSuccess");
               this.setEmptyTeacher();
             }
-
+            // Tắt thông báo mã teacherCode trùng đi
             this.setIsTeacherCodeDuplicate(false);
           }
         }
@@ -744,6 +747,11 @@ export default {
     "FullName",
     "PhoneNumber",
     "Email",
+    "DepartmentID",
+    "ListSubject",
+    "ListRoom",
+    "IsProfessionalQualifications",
+    "IsWorking",
     "isShowLoading",
     "idxPage",
     "teacherIdCurrent",
@@ -766,11 +774,26 @@ export default {
     },
     listRoomModel() {
       this.setListRoom(
-        this.listRoomModel?.map((s) => ({
-          EquimentRoomID: s,
-          EquimentRoomName: this.dbDropdown.listRoom[s - 1]?.EquimentRoomName,
+        this.listRoomModel?.map((r) => ({
+          EquimentRoomID: r,
+          EquimentRoomName: this.dbDropdown.listRoom[r - 1]?.EquimentRoomName,
         }))
       );
+    },
+    DepartmentID() {
+      this.departmentModel = this.DepartmentID;
+    },
+    ListSubject() {
+      this.listSubjectModel = this.ListSubject?.map((s) => s.SubjectID);
+    },
+    ListRoom() {
+      this.listRoomModel = this.ListRoom?.map((r) => r.EquimentRoomID);
+    },
+    IsProfessionalQualifications() {
+      this.careerLevel = this.IsProfessionalQualifications;
+    },
+    IsWorking() {
+      this.working = this.IsWorking;
     },
   },
   mounted() {
@@ -787,6 +810,7 @@ export default {
   width: 100%;
   padding: 0 24px;
   text-align: center;
+  line-height: 26px;
 }
 
 .title-name {
@@ -928,6 +952,22 @@ export default {
 
 .checkbox-input {
   padding-right: 0;
+}
+
+.checkbox-input:focus {
+  outline: unset;
+}
+
+.checkbox-input:focus .checkbox-input__icon {
+  display: none;
+}
+
+.checkbox-input:focus .checkbox-input__icon-hover {
+  display: block;
+}
+
+.checkbox-input.active:focus .checkbox-input__icon-hover {
+  display: none;
 }
 
 /* Dropdown  */

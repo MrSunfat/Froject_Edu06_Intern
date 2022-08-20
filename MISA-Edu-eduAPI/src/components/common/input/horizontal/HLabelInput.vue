@@ -31,6 +31,7 @@ export default {
     tabindex: Number,
     stringRef: String,
     duplicate: String,
+    titleForm: String,
   },
   data() {
     return {
@@ -49,7 +50,10 @@ export default {
     }
 
     // Nếu thẻ label là Số hiệu cán bộ
-    if (this.label === constanst.propertiesTeacher.code) {
+    if (
+      this.label === constanst.propertiesTeacher.code &&
+      this.titleForm === "Thêm"
+    ) {
       this.generateNewTeacherCode();
     }
   },

@@ -64,6 +64,7 @@ namespace MISA.Edu06.Api.Controllers
             }
             catch (EduValidateException ex)
             {
+                // Trả về 1 respone -> về lỗi sai
                 var response = new
                 {
                     devMsg = ex.Message,

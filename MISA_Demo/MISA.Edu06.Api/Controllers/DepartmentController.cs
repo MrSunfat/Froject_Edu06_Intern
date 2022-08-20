@@ -103,8 +103,9 @@ namespace MISA.Edu06.Api.Controllers
         /// <summary>
         /// Xóa tổ hợp môn
         /// </summary>
-        /// <param name="departmentId"></param>
-        /// <returns></returns>
+        /// <param name="departmentId">Mã ID của tổ hợp môn</param>
+        /// <returns>Số lượng tổ môn bị xóa</returns>
+        /// CreatedBy: TNDanh (15/8/2022)
         [HttpDelete("{departmentID}")]
         public IActionResult DeleteDepartment(int departmentId)
         {

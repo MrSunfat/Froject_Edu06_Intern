@@ -187,13 +187,13 @@ export default {
         this.showCancelBtn = true;
         this.closePopupNotify = false;
       }
-      this.titleForm = "Thêm";
     },
     /**
      * Mở form thêm giáo viên
      * Author: Tran Danh (16/7/2022)
      */
     handleOpenFormAddTeacher() {
+      this.titleForm = "Thêm";
       this.closeFormTeacher = false;
     },
     /**
@@ -293,6 +293,7 @@ export default {
     handleClosePopupAndForm() {
       this.closeFormTeacher = true;
       this.closePopupNotify = true;
+      this.showCancelBtn = false;
     },
     /**
      * Thực hiện validate form khi nhấn Xác nhận ở popup
@@ -300,6 +301,7 @@ export default {
      */
     handleConfirmValidateForm() {
       this.$refs.formAddTeacher?.validateForm();
+      this.showCancelBtn = false;
     },
     /**
      * Thực hiện đóng form khi kiểm tra thành công
@@ -307,6 +309,7 @@ export default {
      */
     handleCloseWhenSuccess() {
       this.closeFormTeacher = true;
+      this.showCancelBtn = false;
     },
 
     /**

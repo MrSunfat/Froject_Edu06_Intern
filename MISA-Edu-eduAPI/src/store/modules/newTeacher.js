@@ -20,6 +20,10 @@ const newTeacherModule = {
         PhoneNumber: (state) => state.teacher.PhoneNumber,
         Email: (state) => state.teacher.Email,
         IsWorking: (state) => state.teacher.IsWorking,
+        IsProfessionalQualifications: (state) => state.teacher.IsProfessionalQualifications,
+        DepartmentID: (state) => state.teacher.DepartmentID,
+        ListSubject: (state) => state.teacher.ListSubject,
+        ListRoom: (state) => state.teacher.ListRoom,
     },
     actions: {},
     mutations: {

@@ -42,7 +42,6 @@ export default {
         { title: "Tổng quan", path: "/", iconItem: OverviewIcon },
         { title: "Thiết bị", path: "/device", iconItem: DeviceIcon },
         { title: "Mượn trả", path: "/loan", iconItem: LoanAndPayIcon },
-        // { title: "Đề nghị mua sắm", path: "/", iconItem: SuggestIcon },
         { title: "Báo cáo", path: "/report", iconItem: ReportIcon },
         { title: "Hệ thống", path: "/system", iconItem: SystemIcon },
       ],

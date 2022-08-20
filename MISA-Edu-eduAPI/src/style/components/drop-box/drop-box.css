@@ -14,14 +14,15 @@
     background-color: var(--hover-color) !important;
 }
 
-  /* .dx-texteditor.dx-state-hover {
-    border-color: var(--active-border-input) !important;
-  }
-  
-  .dx-texteditor.dx-state-focused.dx-editer-outlined {
-    border-color: var(--active-border-input) !important;
-  } */
-  
 .dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon {
     background-color: transparent !important;
+}
+
+.dx-checkbox-indeterminate .dx-checkbox-icon::before {
+  background-color: #0fa655 !important;
+}
+
+.dx-list.dx-list-select-decorator-enabled .dx-list-item.dx-state-focused .dx-checkbox-icon,
+.dx-list.dx-list-select-decorator-enabled .dx-list-select-all.dx-state-focused .dx-checkbox-icon {
+  border-color:#0fa655 !important;
 }

@@ -122,23 +122,19 @@ namespace MISA.Edu06.Api.Controllers
         public async Task<IActionResult> ExportTeacher(CancellationToken cancellationToken)
         {
             await Task.Yield();
-            //Lấy danh sách giáo viên
+            // Lấy danh sách giáo viên
             List<TeacherDTO> teachers = _teacherRepository.GetAll().ToList();
 
             var stream = new MemoryStream();
 
             using (var package = new ExcelPackage(stream))
             {
-                //Tạo 1 sheet excel
+                // Tạo 1 sheet excel
                 var workSheet = package.Workbook.Worksheets.Add("DANH SÁCH GIÁO VIÊN");
-
-                // cột đầu tiên của table tính từ header (sẽ tạo table sau khi thêm hết các dòng vào worksheet)
                 var rowStart = 1;
-                // cột cuối cùng của table
                 var rowEnd = teachers.Count + rowStart;
 
-                // set header cho bảng của file excel
-                // biến lưu giá trị cột số thứ tự
+                // Biến lưu giá trị cột số thứ tự
                 var tableIndex = 1;
                 workSheet.Cells[rowStart, 1].Value = "STT";
                 workSheet.Cells[rowStart, 2].Value = "Số hiệu cán bộ";
@@ -186,7 +182,7 @@ namespace MISA.Edu06.Api.Controllers
                 // hiện header
                 tbl.ShowHeader = true;
 
-                //Set font style cho table
+                //Xét font style cho table
                 for (int i = 1; i <= 9; i++)
                 {
                     workSheet.Column(i).Style.Font.Size = 11;
@@ -197,25 +193,24 @@ namespace MISA.Edu06.Api.Controllers
                     workSheet.Cells[1, i].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
                 }
 
-                //Set font style cho title
+                //Xét font style cho title
                 workSheet.Cells[1, 1].Style.Font.Size = 16;
                 workSheet.Cells[1, 1].Style.Font.Name = "Arial";
                 workSheet.Cells[1, 1].Style.Font.Bold = true;
                 workSheet.Cells[1, 1].Style.Font.Color.SetColor(Color.Black);
 
-                //Set font style cho header
+                //Xét font style cho header
                 workSheet.Row(1).Style.Font.Size = 10;
                 workSheet.Row(1).Style.Font.Name = "Arial";
                 workSheet.Row(1).Style.Font.Bold = true;
                 workSheet.Row(1).Style.Font.Color.SetColor(Color.Black);
 
-                // add style cho toàn bộ table
+                // Thêm style cho toàn bộ table
                 tbl.TableStyle = TableStyles.Light8;
 
-                //Căn giữa cho header và các dòng theo yc
+                // Căn giữa cho header và các dòng theo yêu câu
                 workSheet.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                //workSheet.Columns[5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 workSheet.Columns[8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 workSheet.Columns[9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 // AutoFit Columns

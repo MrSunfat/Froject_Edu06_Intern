@@ -160,6 +160,7 @@ export default {
         name: teacher.FullName,
       });
 
+      this.showLoading();
       axios
         .get(`${urlEmployees}/${teacherId}`)
         .then((res) => {
@@ -168,7 +169,14 @@ export default {
             FullName: res.data.FullName,
             PhoneNumber: res.data.PhoneNumber,
             Email: res.data.Email,
+            DepartmentID: res.data.DepartmentID,
+            IsProfessionalQualifications: res.data.IsProfessionalQualifications,
+            IsWorking: res.data.IsWorking,
+            DayOff: res.data.DayOff,
+            ListSubject: [...res.data.ListSubject],
+            ListRoom: [...res.data.ListRoom],
           });
+          this.hideLoading();
         })
         .catch((err) => {
           console.error(err);
@@ -183,7 +191,12 @@ export default {
     stringListItems(listItem, prop) {
       return listItem.map((item) => item[prop]);
     },
-    ...mapMutations(["setTeacherCurrent", "setNewTeacher"]),
+    ...mapMutations([
+      "setTeacherCurrent",
+      "setNewTeacher",
+      "showLoading",
+      "hideLoading",
+    ]),
   },
   computed: {},
 };

@@ -1,45 +1,13 @@
 <template>
   <div class="abstract-page">
     Tính năng đang phát triển
-    <DxSelectBox
-      ref="ms-selectbox"
-      :search-enabled="true"
-      :items="listDepartment"
-      display-expr="Name"
-      value-expr="ID"
-      :data-source="teacher.Department"
-      placeholder=""
-      noDataText="Không tìm thấy tổ hợp môn phù hợp !"
-      :tabindex="1"
-    />
-    <DxTagBox
-      :search-enabled="true"
-      :items="listDepartment"
-      :show-selection-controls="true"
-      :max-displayed-tags="3"
-      display-expr="Name"
-      value-expr="ID"
-      placeholder=""
-      selectAllText="Tất cả"
-      v-model:value="teacher.Department"
-      :showDropDownButton="true"
-      :multiline="false"
-      @multiTagPreparing="onMultiTagPreparingDepartment"
-      noDataText="Không tìm thấy tổ hợp môn phù hợp !"
-    />
-    <!-- <MisaCombobox url="https://localhost:7088/api/v1/Department" /> -->
   </div>
 </template>
 
 <script>
-import DxSelectBox from "devextreme-vue/select-box";
-import DxTagBox from "devextreme-vue/tag-box";
 export default {
   name: "AbstractPage",
   components: {
-    DxSelectBox,
-    DxTagBox,
-    // MisaCombobox,
   },
   data() {
     return {

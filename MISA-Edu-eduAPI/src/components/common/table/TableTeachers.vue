@@ -43,6 +43,7 @@
         @editTeacherInfo="handleOpenEditForm"
       />
     </table>
+    <h1 v-show="!teachers.length" class="subtitle-one no-teachers">Không tìm thấy giáo viên phù hợp</h1>
     <loading-comp v-if="isShowLoading" />
     <popup-notify
       v-if="this.isShowPopupNotify"
@@ -214,4 +215,8 @@ export default {
 <style scoped>
 /* @import url("../../style/components/table/table-teachers.css"); */
 @import url("@/style/components/table/table-teachers.css");
+.no-teachers {
+  margin-top: 16px;
+  margin-left: 16px;
+}
 </style>

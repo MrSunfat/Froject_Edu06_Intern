@@ -81,3 +81,11 @@
     padding: 0 4px 0 0;
     outline: 0;
   }
+
+  .dx-item.dx-list-item.dx-state-hover {
+    background-color: var(--row-focus-color-on-grid-color);
+  }
+
+  .dx-item.dx-list-item.dx-state-focused {
+    background-color: var(--row-focus-color-on-grid-color);
+  }
