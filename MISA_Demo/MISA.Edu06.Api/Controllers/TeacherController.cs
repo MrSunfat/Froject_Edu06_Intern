@@ -21,13 +21,15 @@ namespace MISA.Edu06.Api.Controllers
         #region Properties
         private readonly ITeacherRepository _teacherRepository;
         private readonly ITeacherService _teacherService;
+        public static IWebHostEnvironment _webHostEnvironment;
         #endregion
 
         #region Constructor
-        public TeacherController(ITeacherRepository teacherRepository, ITeacherService teacherService)
+        public TeacherController(ITeacherRepository teacherRepository, ITeacherService teacherService, IWebHostEnvironment webHostEnvironment)
         {
             _teacherRepository = teacherRepository;
             _teacherService = teacherService;
+            _webHostEnvironment = webHostEnvironment;
         }
         #endregion
 
@@ -70,17 +72,26 @@ namespace MISA.Edu06.Api.Controllers
             {
                 // Thực hiện lấy dữ liệu qua teacherID
                 var teacher = _teacherRepository.GetTeacherByID(teacherID);
+
+                string avatarName = "TeacherPic_" + teacher.TeacherCode + ".png";
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "TeacherPics", avatarName);
+                if (System.IO.File.Exists(path))
+                {
+                    teacher.ImgByte = System.IO.File.ReadAllBytes(path); 
+                }
+
                 return Ok(teacher);
 
             } catch(Exception ex)
             {
                 var error = new
                 {
+                    statusCode = 400,
                     ex = ex.Message,
                     message = Resources.StatusMesg.E_FindNotFound,
                     devMes = Resources.StatusMesg.E_FindNotFoundDev,
                 };
-                return StatusCode(400, error);
+                return Ok(error);
             }
 
         }
@@ -234,12 +245,34 @@ namespace MISA.Edu06.Api.Controllers
         /// <returns>Số lượng thêm giáo viên</returns>
         /// CreatedBy: TNDanh (3/8/2022)
         [HttpPost()]
-        public IActionResult AddNewTeacher(Teacher teacher)
+        public IActionResult AddNewTeacher([FromForm]Teacher teacher)
         {   
             try
             {
+                var files = teacher.Files;
+                //teacher.Files = null;
+
                 // Validate dữ liệu
                 var resAfterValidate = _teacherService.InsertService(teacher);
+
+                if (teacher.TeacherCode != null && files != null && files.Length > 0)
+                {
+                    string path = _webHostEnvironment.WebRootPath + "\\TeacherPics\\";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string avatarName = "TeacherPic_" + teacher.TeacherCode + ".png";
+                    if (System.IO.File.Exists(path + avatarName))
+                    {
+                        System.IO.File.Delete(path + avatarName);
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(path + avatarName))
+                    {
+                        files.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                }
                 // Thêm một giáo viên mới
                 var res = _teacherRepository.AddNewTeacher(teacher);
 
@@ -279,7 +312,52 @@ namespace MISA.Edu06.Api.Controllers
         {
             var res = _teacherRepository.UpdateTeacherByID(teacher, teacherID);
             return Ok(res);
+        }
 
+        /// <summary>
+        /// Upload avatar của giáo viên
+        /// </summary>
+        /// <param name="teacher">Thông tin giáo viên</param>
+        /// <returns>Trạng thái lưu ảnh thành công hay thất bại</returns>
+        /// CreatedBy: TNDanh (21/8/2022)
+        [HttpPost("Upload")]
+        public IActionResult UploadImage([FromForm]Teacher teacher)
+        {
+            try
+            {
+                var files = teacher.Files;
+                teacher.Files = null;
+
+                if (teacher.TeacherCode != null && files != null && files.Length > 0)
+                {
+                    string path = _webHostEnvironment.WebRootPath + "\\TeacherPics\\";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string avatarName = "TeacherPic_" + teacher.TeacherCode + ".png";
+                    if (System.IO.File.Exists(path + avatarName))
+                    {
+                        System.IO.File.Delete(path + avatarName);
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(path + avatarName))
+                    {
+                        files.CopyTo(fileStream);
+                        fileStream.Flush();
+
+                        return Ok(path + avatarName);
+                    }
+                }
+                else
+                {
+                    return Ok("Failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message.ToString());
+                throw;
+            }
         }
 
         /// <summary>

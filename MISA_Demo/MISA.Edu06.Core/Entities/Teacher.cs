@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,17 @@ namespace MISA.Edu06.Core.Entities
         /// Tên giáo viên
         /// </summary>
         public string FullName { get; set; }
-        
+
+        /// <summary>
+        /// Lưu trữ ảnh đại diện
+        /// </summary>
+        public IFormFile? Files { get; set; } = null;
+
+        /// <summary>
+        /// Dung lượng của ảnh đại diện
+        /// </summary>
+        public byte[]? ImgByte { get; set; }
+
         /// <summary>
         /// Email
         /// </summary>

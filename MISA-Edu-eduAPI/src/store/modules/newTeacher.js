@@ -5,12 +5,15 @@ const newTeacherModule = {
             FullName: '',
             PhoneNumber: '',
             Email: '',
+            AvatarSrc: '',
+            Files: '',
+            ImgByte: '',
             DepartmentID: 1,
             ListSubject: [],
             ListRoom: [],
             IsProfessionalQualifications: false,
             IsWorking: false,
-            DayOff: null,
+            DayOff: '',
         },
     },
     getters: {
@@ -19,8 +22,10 @@ const newTeacherModule = {
         FullName: (state) => state.teacher.FullName,
         PhoneNumber: (state) => state.teacher.PhoneNumber,
         Email: (state) => state.teacher.Email,
+        AvatarSrc: (state) => state.teacher.AvatarSrc,
         IsWorking: (state) => state.teacher.IsWorking,
-        IsProfessionalQualifications: (state) => state.teacher.IsProfessionalQualifications,
+        IsProfessionalQualifications: (state) =>
+            state.teacher.IsProfessionalQualifications,
         DepartmentID: (state) => state.teacher.DepartmentID,
         ListSubject: (state) => state.teacher.ListSubject,
         ListRoom: (state) => state.teacher.ListRoom,
@@ -54,6 +59,13 @@ const newTeacherModule = {
          */
         setEmail(state, Email) {
             state.teacher.Email = Email;
+        },
+        /**
+         * Xét url cho ảnh đại diện
+         * Author: Tran Danh (21/8/2022)
+         */
+        setAvatarSrc(state, avatarSrc) {
+            state.teacher.AvatarSrc = avatarSrc;
         },
         /**
          *  Xét giá trị cho đào tạo trình độ
@@ -120,7 +132,7 @@ const newTeacherModule = {
                 ListRoom: [],
                 IsProfessionalQualifications: false,
                 IsWorking: false,
-                DayOff: null,
+                DayOff: '',
             };
         },
     },

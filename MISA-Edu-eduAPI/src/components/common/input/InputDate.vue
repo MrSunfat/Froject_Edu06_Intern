@@ -40,11 +40,33 @@ export default {
      * Author: Tran Danh (16/8/2022)
      */
     handleChangeDate() {
-      this.setDayOff(new Date(this.time1));
-    }
+      var date = new Date(this.time1);
+      var day = date.getDate(); // yields date
+      var month = date.getMonth() + 1; // yields month (add one as '.getMonth()' is zero indexed)
+      var year = date.getFullYear(); // yields year
+      var hour = date.getHours(); // yields hours
+      var minute = date.getMinutes(); // yields minutes
+      var second = date.getSeconds(); // yields seconds
+
+      // After this construct a string with the above results as below
+      var time =
+        day +
+        "/" +
+        month +
+        "/" +
+        year +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second;
+
+      this.setDayOff(time);
+    },
   },
   computed: {
-    ...mapGetters(["IsWorking"])
+    ...mapGetters(["IsWorking"]),
   },
   watch: {
     /**
@@ -53,10 +75,10 @@ export default {
      */
     IsWorking() {
       if (this.IsWorking) {
-        this.setDayOff(null);
+        this.setDayOff("");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

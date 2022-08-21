@@ -106,6 +106,7 @@ import axios from "axios";
 import urlEmployees from "@/scripts/constants/urlTeachers";
 import typeToast from "../../../scripts/enum/typeToast";
 import TooltipComp from "../tooltip/TooltipComp.vue";
+import srcAvatar from "@/assets/Icons/avatar-default.jpg";
 export default {
   name: "RowTableTeachers",
   components: { TooltipComp },
@@ -169,6 +170,9 @@ export default {
             FullName: res.data.FullName,
             PhoneNumber: res.data.PhoneNumber,
             Email: res.data.Email,
+            Files: res.data.Files,
+            ImgByte: res.data.ImgByte,
+            AvatarSrc: srcAvatar,
             DepartmentID: res.data.DepartmentID,
             IsProfessionalQualifications: res.data.IsProfessionalQualifications,
             IsWorking: res.data.IsWorking,
@@ -176,6 +180,9 @@ export default {
             ListSubject: [...res.data.ListSubject],
             ListRoom: [...res.data.ListRoom],
           });
+          if (res.data.ImgByte != null && res.data.ImgByte.length > 0) {
+            this.setAvatarSrc("data:image/jpg;base64," + res.data.ImgByte);
+          }
           this.hideLoading();
         })
         .catch((err) => {
@@ -194,6 +201,7 @@ export default {
     ...mapMutations([
       "setTeacherCurrent",
       "setNewTeacher",
+      "setAvatarSrc",
       "showLoading",
       "hideLoading",
     ]),

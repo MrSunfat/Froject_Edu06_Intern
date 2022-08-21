@@ -22,6 +22,7 @@
             ref="fileInputAvatar"
             type="file"
             class="file-input-avatar"
+            accept="image/*"
             @change="changeAvatar"
           />
         </div>
@@ -259,6 +260,8 @@ import DxTagBox from "devextreme-vue/tag-box";
 
 // constanst
 import constanst from "@/scripts/constants/constants";
+import axios from "axios";
+import urlTeachers from "@/scripts/constants/urlTeachers";
 export default {
   name: "FormAddTeacher",
   props: {
@@ -277,6 +280,7 @@ export default {
   },
   data() {
     return {
+      file: "",
       checkboxInactive,
       checkboxHover,
       checkboxActive,
@@ -546,11 +550,20 @@ export default {
           if (!this.bindingErrorIP.phoneNumber && !this.bindingErrorIP.email) {
             this.showLoading();
             this.teacher.id = this.teacherIdCurrent;
+            //this.teacher.TeacherID = this.teacherIdCurrent;
             // Kiểm tra đây là thêm hay sửa giáo viên
+            let formData = new FormData();
+            for (let key in this.teacher) {
+              formData.append(key, this.teacher[key]);
+            }
+            if (this.file) {
+              formData.append("Files", this.file);
+            }
+            console.log(formData);
             // 1. Thêm giáo viên
             if (this.titleForm === "Thêm") {
               // Kiểm tra trùng mã giáo viên
-              await this.addNewTeacher(this.teacher);
+              await this.addNewTeacher(formData);
               // 1. Bị trùng -> hiện ra thông báo lỗi
               if (this.isTeacherCodeDuplicate) {
                 this.bindingErrorIP.teacherCode = true;
@@ -566,9 +579,22 @@ export default {
             // 2. Sửa thông tin giáo viên
             else {
               this.editTeacherInfo(this.teacher);
+              //formData.append("TeacherID", this.teacherIdCurrent);
+              // Upload ảnh avatar mới khi chỉnh sửa
+              await axios
+                .post(`${urlTeachers}/Upload`, formData, {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                .catch((err) => console.log(err));
               this.$emit("successEdit");
               this.$emit("closeWhenSuccess");
               this.setEmptyTeacher();
+              this.setTeacherCurrent({
+                id: "",
+                name: "",
+              });
             }
             // Tắt thông báo mã teacherCode trùng đi
             this.setIsTeacherCodeDuplicate(false);
@@ -627,8 +653,8 @@ export default {
      *  Thay đổi url của avatar
      */
     changeAvatar(event) {
-      const file = event.target.files[0];
-      this.srcAvatar = URL.createObjectURL(file);
+      this.file = event.target.files[0];
+      this.srcAvatar = URL.createObjectURL(this.file);
     },
     /**
      * Tag Component
@@ -747,6 +773,7 @@ export default {
     "FullName",
     "PhoneNumber",
     "Email",
+    "AvatarSrc",
     "DepartmentID",
     "ListSubject",
     "ListRoom",
@@ -794,6 +821,11 @@ export default {
     },
     IsWorking() {
       this.working = this.IsWorking;
+    },
+    AvatarSrc() {
+      if (this.AvatarSrc) {
+        this.srcAvatar = this.AvatarSrc;
+      }
     },
   },
   mounted() {

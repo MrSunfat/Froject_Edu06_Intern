@@ -168,7 +168,8 @@ const teachersModule = {
                     }
                     // Nếu thêm giáo viên thất bại do trùng mã giáo viên
                     if (
-                        response.data?.statusCode === 400 && response.data?.devMsg.includes("trùng")
+                        response.data?.statusCode === 400 &&
+                        response.data?.devMsg.includes('trùng')
                     ) {
                         commit('setIsTeacherCodeDuplicate', true);
                     }
@@ -185,11 +186,11 @@ const teachersModule = {
         async editTeacherInfo({ commit }, teacherInfo) {
             try {
                 await axios.put(
-                    `${urlTeachers}/${teacherInfo.id}`,
+                    `${urlTeachers}/${teacherInfo['id']}`,
                     teacherInfo,
                     {
                         headers: {
-                            'content-Type': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json; charset=utf-8',
                         },
                     }
                 );

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Content.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
