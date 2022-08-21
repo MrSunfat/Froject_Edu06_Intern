@@ -213,7 +213,21 @@
               </button>
               <h1 class="subtitle-two">Đang làm việc</h1>
             </div>
-            <input-date :tabindex="10" class="mg-l-8" v-if="!this.working" />
+            <div class="input-date d-flex">
+              <label for="day-off" class="subtitle-two d-flex"
+                >Ngày nghỉ việc</label
+              >
+              <div class="input-date__main d-flex">
+                <DxDateBox
+                  :tabIndex="10"
+                  type="date"
+                  display-format="dd/MM/yyyy"
+                  :use-mask-behavior="true"
+                  placeholder="dd/mm/yyyy"
+                />
+              </div>
+            </div>
+            <!-- <input-date :tabindex="10" class="mg-l-8" v-if="!this.working" /> -->
           </div>
         </div>
         <div class="inputs__btns">
@@ -247,7 +261,7 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import BaseBtn from "@/components/common/button/BaseBtn.vue";
 import HLabelInput from "@/components/common/input/horizontal/HLabelInput.vue";
-import InputDate from "@/components/common/input/InputDate.vue";
+//import InputDate from "@/components/common/input/InputDate.vue";
 import LoadingComp from "@/components/common/loading/LoadingComp.vue";
 // img
 import avatarDefault from "@/assets/Icons/avatar-default.jpg";
@@ -257,6 +271,7 @@ import checkboxActive from "@/assets/Icons/ic_Checkbox_Active.png";
 import closeIcon from "@/assets/Icons/ic_X_2.png";
 import DxSelectBox from "devextreme-vue/select-box";
 import DxTagBox from "devextreme-vue/tag-box";
+import DxDateBox from "devextreme-vue/date-box";
 
 // constanst
 import constanst from "@/scripts/constants/constants";
@@ -272,11 +287,12 @@ export default {
   },
   components: {
     HLabelInput,
-    InputDate,
+    // InputDate,
     BaseBtn,
     LoadingComp,
     DxSelectBox,
     DxTagBox,
+    DxDateBox,
   },
   data() {
     return {
@@ -1024,4 +1040,25 @@ export default {
 .mw-190 {
   max-width: 190px !important;
 }
+
+.input-date > label {
+  margin-left: 13px;
+  margin-right: 8px;
+}
+
+.input-date__main {
+  width: 200px !important;
+  height: 32px;
+}
+
+.dx-calendar-cell.dx-calendar-selected-date.dx-calendar-contoured-date,
+.dx-calendar-cell.dx-calendar-selected-date.dx-calendar-today.dx-calendar-contoured-date {
+  -webkit-box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #337ab7;
+  box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #03ae66 !important;
+}
+/* .dx-calendar-navigator
+  .dx-calendar-caption-button.dx-button
+  .dx-button-content {
+  color: #03ae66 !important;
+} */
 </style>
