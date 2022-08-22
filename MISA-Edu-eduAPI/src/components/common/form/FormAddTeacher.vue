@@ -185,7 +185,9 @@
                   class="checkbox-input__icon-checked"
                 />
               </button>
-              <h1 class="subtitle-two">Trình độ nghiệp vụ QLTB</h1>
+              <h1 class="subtitle-two subtitle-color">
+                Trình độ nghiệp vụ QLTB
+              </h1>
             </div>
 
             <div class="working d-flex mg-l-8">
@@ -211,10 +213,10 @@
                   class="checkbox-input__icon-checked"
                 />
               </button>
-              <h1 class="subtitle-two">Đang làm việc</h1>
+              <h1 class="subtitle-two subtitle-color">Đang làm việc</h1>
             </div>
-            <div class="input-date d-flex">
-              <label for="day-off" class="subtitle-two d-flex"
+            <div class="input-date d-flex" v-if="!this.working">
+              <label for="day-off" class="subtitle-two d-flex subtitle-color"
                 >Ngày nghỉ việc</label
               >
               <div class="input-date__main d-flex">
@@ -595,7 +597,6 @@ export default {
             // 2. Sửa thông tin giáo viên
             else {
               this.editTeacherInfo(this.teacher);
-              //formData.append("TeacherID", this.teacherIdCurrent);
               // Upload ảnh avatar mới khi chỉnh sửa
               await axios
                 .post(`${urlTeachers}/Upload`, formData, {
@@ -660,13 +661,14 @@ export default {
     },
     /**
      * Chọn avatar
-     * Author: TRan Danh (16/7/2022)
+     * Author: Tran Danh (16/7/2022)
      */
     handleFileInputAvatar() {
       this.$refs.fileInputAvatar.click();
     },
     /**
      *  Thay đổi url của avatar
+     *  Tran Danh (27/7/2022)
      */
     changeAvatar(event) {
       this.file = event.target.files[0];
@@ -677,6 +679,7 @@ export default {
      */
     /**
      * Xử lý khi chọn subject
+     * Author: Tran Danh (18/7/2022)
      */
     handleSelectSubject(idOption) {
       if (idOption.name === "subject") {
@@ -1049,11 +1052,16 @@ export default {
 .input-date__main {
   width: 200px !important;
   height: 32px;
+  border-color: #ccc !important;
+}
+
+.dx-texteditor.dx-editor-outlined {
+    border-color:#ccc !important;
 }
 
 .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-contoured-date,
 .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-today.dx-calendar-contoured-date {
-  -webkit-box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #337ab7;
+  /* -webkit-box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #337ab7; */
   box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #03ae66 !important;
 }
 /* .dx-calendar-navigator
@@ -1061,4 +1069,8 @@ export default {
   .dx-button-content {
   color: #03ae66 !important;
 } */
+
+.subtitle-color {
+  color: #333;
+}
 </style>

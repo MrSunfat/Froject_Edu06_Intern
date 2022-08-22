@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import axios from "axios";
 import urlEmployees from "@/scripts/constants/urlTeachers";
 import typeToast from "../../../scripts/enum/typeToast";
@@ -183,6 +183,23 @@ export default {
           if (res.data.ImgByte != null && res.data.ImgByte.length > 0) {
             this.setAvatarSrc("data:image/jpg;base64," + res.data.ImgByte);
           }
+          this.setPrevTeacher({
+            TeacherCode: res.data.TeacherCode,
+            FullName: res.data.FullName,
+            PhoneNumber: res.data.PhoneNumber,
+            Email: res.data.Email,
+            Files: res.data.Files,
+            ImgByte: res.data.ImgByte,
+            AvatarSrc: res.data.ImgByte
+              ? "data:image/jpg;base64," + res.data.ImgByte
+              : srcAvatar,
+            DepartmentID: res.data.DepartmentID,
+            IsProfessionalQualifications: res.data.IsProfessionalQualifications,
+            IsWorking: res.data.IsWorking,
+            DayOff: res.data.DayOff,
+            ListSubject: [...res.data.ListSubject],
+            ListRoom: [...res.data.ListRoom],
+          });
           this.hideLoading();
         })
         .catch((err) => {
@@ -202,11 +219,14 @@ export default {
       "setTeacherCurrent",
       "setNewTeacher",
       "setAvatarSrc",
+      "setPrevTeacher",
       "showLoading",
       "hideLoading",
     ]),
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["teacher"]),
+  },
 };
 </script>
 

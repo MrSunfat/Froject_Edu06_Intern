@@ -23,7 +23,9 @@
           class="access-btn mg-l-8"
           nameBtn="Xác nhận"
           :type="typeBtn.PRIMARY"
-          :handleClick="!showCancelBtn ? handleConfirm : handleConfirmValidateForm"
+          :handleClick="
+            !showCancelBtn ? handleConfirm : handleConfirmValidateForm
+          "
         />
       </div>
       <div class="popup-notify__close c-p" @click="handleClosePopupNotify">
@@ -99,6 +101,7 @@ export default {
       "setListTeacherIdDelete",
       "setEmptyTeacher",
       "setIdxPage",
+      "setEmptyPrevTeacher",
     ]),
     /**
      * Xác nhận validate form
@@ -116,6 +119,7 @@ export default {
       this.$emit("closePopupAndForm");
       this.setTeacherCurrent({ id: "", name: "" });
       this.setEmptyTeacher();
+      this.setEmptyPrevTeacher();
     },
   },
   computed: {

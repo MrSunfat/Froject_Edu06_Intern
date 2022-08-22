@@ -105,6 +105,7 @@ export default {
       closePopupNotify: true,
       showCancelBtn: false,
       isShowDeleteRows: false,
+      isChangeTeacher: false,
       typeBtnEnum: {
         PRIMARY: typeBtn.PRIMARY,
         SECONDARY: typeBtn.SECONDARY,
@@ -142,7 +143,12 @@ export default {
     BaseToast,
   },
   methods: {
-    ...mapMutations(["setIdxPage"]),
+    ...mapMutations([
+      "setIdxPage",
+      "setEmptyTeacher",
+      "setTeacherCurrent",
+      "setEmptyPrevTeacher",
+    ]),
     /**
      * Đóng popup thông báo
      * Author: Tran Danh (16/7/2022)
@@ -167,20 +173,35 @@ export default {
      * Author: Tran Danh (16/7/2022)
      */
     handleCloseFormAddTeacher() {
-      if (
-        this.teacher.Email &&
-        this.teacher.EmployeeCode &&
-        this.teacher.FullName &&
-        this.teacher.PhoneNumber
-      ) {
+      // if (
+      //   this.teacher.Email &&
+      //   this.teacher.EmployeeCode &&
+      //   this.teacher.FullName &&
+      //   this.teacher.PhoneNumber
+      // ) {
+      //   this.closeFormTeacher = true;
+      // } else if (
+      //   !this.teacher.Email &&
+      //   !this.teacher.EmployeeCode &&
+      //   !this.teacher.FullName &&
+      //   !this.teacher.PhoneNumber
+      // ) {
+      //   this.closeFormTeacher = true;
+      // } else {
+      //   this.detailPopup.content =
+      //     "Dữ liệu đã bị thay đổi, bạn có muốn lưu lại không ?";
+      //   this.showCancelBtn = true;
+      //   this.closePopupNotify = false;
+      // }
+
+      if (this.deepEqual(this.prevTeacher, this.teacher)) {
         this.closeFormTeacher = true;
-      } else if (
-        !this.teacher.Email &&
-        !this.teacher.EmployeeCode &&
-        !this.teacher.FullName &&
-        !this.teacher.PhoneNumber
-      ) {
-        this.closeFormTeacher = true;
+        this.setEmptyTeacher();
+        this.setTeacherCurrent({
+          id: "",
+          name: "",
+        });
+        this.setEmptyPrevTeacher();
       } else {
         this.detailPopup.content =
           "Dữ liệu đã bị thay đổi, bạn có muốn lưu lại không ?";
@@ -338,9 +359,48 @@ export default {
         document.body.removeChild(link);
       });
     },
+
+    /**
+     * So sánh 2 object
+     * Author: Tran Danh (22/8/2022)
+     */
+    deepEqual(object1, object2) {
+      const keys1 = Object.keys(object1);
+      const keys2 = Object.keys(object2);
+      if (keys1.length !== keys2.length) {
+        return false;
+      }
+      for (const key of keys1) {
+        const val1 = object1[key];
+        const val2 = object2[key];
+        const areObjects = this.isObject(val1) && this.isObject(val2);
+        if (
+          (areObjects && !this.deepEqual(val1, val2)) ||
+          (!areObjects && val1 !== val2)
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+    isObject(object) {
+      return object != null && typeof object === "object";
+    },
     ...mapActions(["deleteListTeacher", "getTeachers", "filterTeacher"]),
   },
-  computed: mapGetters(["listTeacherIdDelete", "teacher"]),
+  computed: mapGetters(["listTeacherIdDelete", "teacher", "prevTeacher"]),
+  watch: {
+    // teacher: {
+    //   handler(newValue, oldValue) {
+    //     if (!this.deepEqual(newValue, oldValue)) {
+    //       this.isChangeTeacher = true;
+    //     } else {
+    //       this.isChangeTeacher = false;
+    //     }
+    //   },
+    //   deep: true,
+    // },
+  },
 };
 </script>
 

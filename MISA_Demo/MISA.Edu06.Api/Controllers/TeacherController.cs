@@ -296,7 +296,18 @@ namespace MISA.Edu06.Api.Controllers
                     Data = teacher
                 };
                 return Ok(response);    
-            } 
+            }
+            catch (Exception ex)
+            {
+                var response = new
+                {
+                    statusCode = 400,
+                    devMsg = ex.Message,
+                    userMsg = ex.Message,
+                    Data = teacher
+                };
+                return Ok(response);
+            }
 
         }
 

@@ -15,6 +15,7 @@ const newTeacherModule = {
             IsWorking: false,
             DayOff: '',
         },
+        prevTeacher: {},
     },
     getters: {
         teacher: (state) => state.teacher,
@@ -29,6 +30,7 @@ const newTeacherModule = {
         DepartmentID: (state) => state.teacher.DepartmentID,
         ListSubject: (state) => state.teacher.ListSubject,
         ListRoom: (state) => state.teacher.ListRoom,
+        prevTeacher: (state) => state.prevTeacher,
     },
     actions: {},
     mutations: {
@@ -123,6 +125,31 @@ const newTeacherModule = {
          */
         setEmptyTeacher(state) {
             state.teacher = {
+                TeacherCode: '',
+                FullName: '',
+                PhoneNumber: '',
+                Email: '',
+                DepartmentID: 1,
+                ListSubject: [],
+                ListRoom: [],
+                IsProfessionalQualifications: false,
+                IsWorking: false,
+                DayOff: '',
+            };
+        },
+        /**
+         * Xét giá trị của teacher trước đó
+         * Author: Tran Danh (22/8/2022)
+         */
+        setPrevTeacher(state, teacher) {
+            state.prevTeacher = teacher;
+        },
+        /**
+         * Xét empty cho teacher
+         * Author: Tran Danh (22/7/2022)
+         */
+         setEmptyPrevTeacher(state) {
+            state.prevTeacher = {
                 TeacherCode: '',
                 FullName: '',
                 PhoneNumber: '',
