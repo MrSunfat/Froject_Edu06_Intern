@@ -28,10 +28,10 @@
         </div>
         <div class="avatar-box__info d-flex">
           <h1 class="title nowrap" :title="this.FullName">
-            {{ this.FullName || "Họ và tên" }}
+            {{ this.FullName || constanst.propertiesTeacher.fullName }}
           </h1>
-          <p class="subtitle-two" :title="this.TeacherCode">
-            {{ this.TeacherCode || "Số hiệu cán bộ" }}
+          <p class="subtitle-two nowrap" :title="this.TeacherCode">
+            {{ this.TeacherCode || constanst.propertiesTeacher.code }}
           </p>
         </div>
       </div>
@@ -105,7 +105,10 @@
               />
             </div>
             <div class="dropdown d-flex">
-              <label class="subtitle-two d-flex dropdown__label">
+              <label
+                class="subtitle-two d-flex dropdown__label"
+                title="Quản lý theo môn"
+              >
                 QL theo môn
               </label>
               <DxTagBox
@@ -129,7 +132,10 @@
           </div>
           <div class="inputs__main__two"></div>
           <div class="dropdown d-flex">
-            <label class="subtitle-two d-flex dropdown__label">
+            <label
+              class="subtitle-two d-flex dropdown__label"
+              title="Quản lý kho, phòng"
+            >
               QL kho, phòng
             </label>
             <DxTagBox
@@ -1052,23 +1058,27 @@ export default {
 .input-date__main {
   width: 200px !important;
   height: 32px;
-  border-color: #ccc !important;
+  /* border-color: #ccc !important; */
 }
 
-.dx-texteditor.dx-editor-outlined {
-    border-color:#ccc !important;
-}
+/* .dx-texteditor.dx-editor-outlined {
+  border-color: #ccc !important;
+} */
 
 .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-contoured-date,
 .dx-calendar-cell.dx-calendar-selected-date.dx-calendar-today.dx-calendar-contoured-date {
   /* -webkit-box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #337ab7; */
   box-shadow: inset 0 0 0 1px #bebebe, inset 0 0 0 1000px #03ae66 !important;
 }
-/* .dx-calendar-navigator
-  .dx-calendar-caption-button.dx-button
-  .dx-button-content {
-  color: #03ae66 !important;
-} */
+
+.dx-datebox {
+  height: 32px;
+  border-color: #ccc !important;
+}
+
+.dx-texteditor.dx-state-focused.dx-editor-outlined {
+  border-color: #03ae66 !important;
+}
 
 .subtitle-color {
   color: #333;

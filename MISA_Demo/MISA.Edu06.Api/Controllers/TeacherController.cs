@@ -341,16 +341,21 @@ namespace MISA.Edu06.Api.Controllers
 
                 if (teacher.TeacherCode != null && files != null && files.Length > 0)
                 {
+                    // Tạo đường dẫn Foler để lưu ảnh
                     string path = _webHostEnvironment.WebRootPath + "\\TeacherPics\\";
+                    // Kiểm tra Folder chưa tồn tại
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
+                    // Tạo đường dẫn của ảnh
                     string avatarName = "TeacherPic_" + teacher.TeacherCode + ".png";
+                    // Kiểm tra ảnh chưa tồn tại
                     if (System.IO.File.Exists(path + avatarName))
                     {
                         System.IO.File.Delete(path + avatarName);
                     }
+                    // Thực hiện lưu ảnh
                     using (FileStream fileStream = System.IO.File.Create(path + avatarName))
                     {
                         files.CopyTo(fileStream);

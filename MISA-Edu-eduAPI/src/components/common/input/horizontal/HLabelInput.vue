@@ -165,6 +165,7 @@ export default {
       let res = await axios.get(`${urlTeachers}/NewTeacherCode`);
       this.dataIp = res?.data;
       this.setTeacherCode(this.dataIp);
+      this.setPrevTeacherCode(this.dataIp);
       this.$emit("hideError", constanst.propertiesTeacher.code);
     },
     ...mapMutations([
@@ -172,6 +173,7 @@ export default {
       "setFullName",
       "setPhoneNumber",
       "setEmail",
+      "setPrevTeacherCode",
     ]),
   },
   computed: {

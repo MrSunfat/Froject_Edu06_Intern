@@ -173,27 +173,6 @@ export default {
      * Author: Tran Danh (16/7/2022)
      */
     handleCloseFormAddTeacher() {
-      // if (
-      //   this.teacher.Email &&
-      //   this.teacher.EmployeeCode &&
-      //   this.teacher.FullName &&
-      //   this.teacher.PhoneNumber
-      // ) {
-      //   this.closeFormTeacher = true;
-      // } else if (
-      //   !this.teacher.Email &&
-      //   !this.teacher.EmployeeCode &&
-      //   !this.teacher.FullName &&
-      //   !this.teacher.PhoneNumber
-      // ) {
-      //   this.closeFormTeacher = true;
-      // } else {
-      //   this.detailPopup.content =
-      //     "Dữ liệu đã bị thay đổi, bạn có muốn lưu lại không ?";
-      //   this.showCancelBtn = true;
-      //   this.closePopupNotify = false;
-      // }
-
       if (this.deepEqual(this.prevTeacher, this.teacher)) {
         this.closeFormTeacher = true;
         this.setEmptyTeacher();
@@ -383,6 +362,10 @@ export default {
       }
       return true;
     },
+    /**
+     * Kiểm tra có phải là object không ?
+     * Author: Tran Danh (22/8/2022)
+     */
     isObject(object) {
       return object != null && typeof object === "object";
     },

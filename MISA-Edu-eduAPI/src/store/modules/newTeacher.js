@@ -15,7 +15,21 @@ const newTeacherModule = {
             IsWorking: false,
             DayOff: '',
         },
-        prevTeacher: {},
+        prevTeacher: {
+            TeacherCode: '',
+            FullName: '',
+            PhoneNumber: '',
+            Email: '',
+            AvatarSrc: '',
+            Files: '',
+            ImgByte: '',
+            DepartmentID: 1,
+            ListSubject: [],
+            ListRoom: [],
+            IsProfessionalQualifications: false,
+            IsWorking: false,
+            DayOff: '',
+        },
     },
     getters: {
         teacher: (state) => state.teacher,
@@ -138,6 +152,13 @@ const newTeacherModule = {
             };
         },
         /**
+         * Xét giá trị cho teacherCode
+         * Author: Tran Danh (21/7/2022)
+         */
+        setPrevTeacherCode(state, TeacherCode) {
+            state.prevTeacher.TeacherCode = TeacherCode;
+        },
+        /**
          * Xét giá trị của teacher trước đó
          * Author: Tran Danh (22/8/2022)
          */
@@ -148,7 +169,7 @@ const newTeacherModule = {
          * Xét empty cho teacher
          * Author: Tran Danh (22/7/2022)
          */
-         setEmptyPrevTeacher(state) {
+        setEmptyPrevTeacher(state) {
             state.prevTeacher = {
                 TeacherCode: '',
                 FullName: '',
